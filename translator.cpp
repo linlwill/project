@@ -6,6 +6,7 @@ class Instruction {
     string keyword;
     int format;
     string opcode;
+    //Change these strings to Hexes when that class is done
     
     Instruction(){
       keyword = 0;
@@ -82,14 +83,10 @@ Instruction[59] instructionDB = {
 		Instruction("WD",3,"DC")
 	};
 	
-string getOpcode(string subject){
-  //If subject is in instructionDB, return the corresponding hex string.
+Instruction getInstruction(string subject){
+  //If subject is in instructionDB's keywords, return the corresponding instance.  Else return 0.
   for (int i = 0; i < 59; i++){
-    if (subject == instructionDB[i].keyword) return instructionDB[i].opcode;
+    if (subject == instructionDB[i].keyword) return instructionDB[i];
   }//end for
   return 0;
-}//end getOpcode
-
-int getFormat(string subject){
-  
-}
+}//end getInstruction=
