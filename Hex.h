@@ -3,6 +3,7 @@
 #ifndef HEX_INCLUDED
 #define HEX_INCLUDED
 #include <string>
+#include <math.h>
 using namespace std;
 
 class Hex {
@@ -80,5 +81,23 @@ string Hex::getHex(){
   }//end while
   return finished;
 }//end getHex
+
+int Hex::toInt(string input){
+  //Return the base-10 of input interpreted as hex.  If leading-char of input is B (NOT b), interpret as binary
+  int result = 0;
+  int count = 0;
+  int digit;
+  if (input[0] == 'B'){
+    //Binary.  result += digit*2^count, but binary reads backwards so start at the end.
+    for (int i = input.length()-1; i; i--){
+      digit = input[i] - '0'; //Digit is now the true value of 0 or 1.
+      result += digit*pow(2,count);
+      count++;
+    }//end for  
+    return result;
+  } else {
+    //Hexadecimal
+  }//end condition
+}//end toInt
 
 #endif
