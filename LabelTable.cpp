@@ -57,7 +57,7 @@ bool LabelTable::add(string keyword, int address){
   }//end else
 }//end add
 
-int operator[](string keyword){
+int LabelTable::operator[](string keyword){
   //Search the list for a node with the keyword.  If found, return that address.  If not found, return -1 as a flag.
   Label* next = first;
   for (int i = 0; i < length; i++){
