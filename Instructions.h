@@ -1,5 +1,5 @@
-#ifndef TRANSLATOR_INCLUDED
-#define TRANSLATOR_INCLUDED
+#ifndef INSTRUCTIONS_INCLUDED
+#define INSTRUCTIONS_INCLUDED
 #include <string>
 #include "Hex.h"
 using namespace std;
