@@ -20,6 +20,7 @@ class SymbolTable{
   
   public:
     SymbolTable();
+    ~SymbolTable();
     bool contains(string keyword);
     int operator[](string keyword);
     bool add(string keyword, int address);
@@ -30,7 +31,17 @@ SymbolTable::SymbolTable(){
   //Initialize to zero.
   first = 0;
   length = 0;
-}//end initializer
+}//end constructor
+
+SymbolTable::~SymbolTable(){
+  //Iterate through the nodes deleting them.
+  Symbol* temp;
+  while (first){
+    temp = (*first).next;
+    delete first;
+    first = temp;
+  }//end while
+}//end deconstructor
 
 bool SymbolTable::contains(string keyword){
   //Go through the list.  if Label.keyword == keyword, return true.  If the loop exits, return false
