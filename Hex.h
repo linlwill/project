@@ -1,5 +1,5 @@
 //This is a way to handle mathematics with strings, binary strings, integers, or other Hexs.
-//At the moment, all that are supported are =, +, and +=. others wil be added as need arises.
+//At the moment, all that are supported are =, +, ++, and +=. others wil be added as need arises.
 #ifndef HEX_INCLUDED
 #define HEX_INCLUDED
 #include <string>
@@ -30,6 +30,8 @@ class Hex {
     void operator+=(int add);
     void operator+=(string add);
     void operator+=(Hex add);
+    
+    void operator++(int inc);
 };
 
 const string Hex::hexDigits = "0123456789abcdef";
@@ -67,6 +69,11 @@ void Hex::operator+=(int add){
 } void Hex::operator+=(Hex add){
   value += add.value;
 }//end add-assign
+
+void Hex::operator++(int inc){
+  //No idea why an integer argument was needed, but w/e
+  value++;
+}//end increment
 
 string Hex::getHex(){
   //Divide value by 16.  The remainder is the rightmost digit.  Divide the quotient by 16.  Repeat.  When quo = 0, stop. Handle 0 as a special case.
