@@ -34,7 +34,7 @@ void endBaseBlock(int address){
   //iff there is an open block, grab to the top of the list and set its end to end.  Then close the block.
   if (openBaseBlock){
     openBaseBlock = false;
-    (*BaseBlockList.top).endAddres = address;
+    (*BaseBlockList.top).content.endAddress = address;
   }//end if
 }//end endblock
 
