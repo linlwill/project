@@ -1,4 +1,3 @@
-
 #ifndef TRANSLATOR_INCLUDED
 #define TRANSLATOR_INCLUDED
 #include <string>
@@ -93,3 +92,4 @@ Instruction getInstruction(string subject){
   }//end for
   return 0;
 }//end getInstruction=
+#endif
