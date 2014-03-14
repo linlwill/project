@@ -23,7 +23,7 @@ class Instruction {
     }//end good constructor
 };
 
-Instruction[59] instructionDB = {
+const Instruction instructionDB[59] = {
 		Instruction("ADD",3,"18"),
 		Instruction("ADDF",3,"58"),
 		Instruction("ADDR",2,"90"),
