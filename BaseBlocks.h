@@ -15,7 +15,7 @@ class BaseBlock{
 };//end class.  Would have been struct but class made LinkedList utilization easier.
 
 bool openBaseBlock = false;
-LinkedList<BaseBLock> BaseBlockList = LinkedList<BaseBlock>();
+LinkedList<BaseBlock> BaseBlockList = LinkedList<BaseBlock>();
 
 void startBaseBlock(int address, int value);
 void endBaseBlock(int address);
