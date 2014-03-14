@@ -11,9 +11,7 @@ class Instruction {
     Hex opcode;
     
     Instruction(){
-      keyword = 0;
-      format = 0;
-      opcode = 0;
+    	//Cricket sounds
     }//end constructor
     
     Instruction(string keyword, int format, string opcode){
@@ -23,7 +21,7 @@ class Instruction {
     }//end good constructor
 };
 
-const Instruction instructionDB[59] = {
+Instruction instructionDB[59] = {
 		Instruction("ADD",3,"18"),
 		Instruction("ADDF",3,"58"),
 		Instruction("ADDR",2,"90"),
@@ -90,6 +88,6 @@ Instruction getInstruction(string subject){
   for (int i = 0; i < 59; i++){
     if (subject == instructionDB[i].keyword) return instructionDB[i];
   }//end for
-  return 0;
-}//end getInstruction=
+  return Instruction();
+}//end getInstruction
 #endif
