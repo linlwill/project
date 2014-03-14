@@ -114,7 +114,7 @@ int Hex::toInt(string input){
       if (digit >= 'a') digit -= 87;
       else digit -= '0';
       result += digit*pow(16,count);
-      cout++;
+      count++;
     }//end for
     return result;
   }//end condition
