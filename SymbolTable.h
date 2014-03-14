@@ -16,10 +16,10 @@ class SymbolTable{
   
   private:
     Symbol* first;
-    int length;
   
   public:
     SymbolTable();
+    ~SymbolTable();
     bool contains(string keyword);
     int operator[](string keyword);
     bool add(string keyword, int address);
@@ -29,13 +29,22 @@ class SymbolTable{
 SymbolTable::SymbolTable(){
   //Initialize to zero.
   first = 0;
-  length = 0;
-}//end initializer
+}//end constructor
+
+SymbolTable::~SymbolTable(){
+  //Iterate through the nodes deleting them.
+  Symbol* temp;
+  while (first){
+    temp = (*first).next;
+    delete first;
+    first = temp;
+  }//end while
+}//end deconstructor
 
 bool SymbolTable::contains(string keyword){
   //Go through the list.  if Label.keyword == keyword, return true.  If the loop exits, return false
   Symbol* next = first;
-  for (int i = 0; i < length; i++){
+  while(next){
     if ((*next).keyword == keyword) return true;
     next = (*next).next;
   }//end for
@@ -51,7 +60,6 @@ bool SymbolTable::add(string keyword, int value){
     (*temp).value = value;
     (*temp).next = first;
     first = temp;
-    length++;
     return true;
   }//end else
 }//end add
@@ -59,7 +67,7 @@ bool SymbolTable::add(string keyword, int value){
 int SymbolTable::operator[](string keyword){
   //Search the list for a node with the keyword.  If found, return that address.  If not found, return -1 as a flag.
   Symbol* next = first;
-  for (int i = 0; i < length; i++){
+  while (next){
     if ((*next).keyword == keyword) return (*next).value;
     next = (*next).next;
   }//end for
