@@ -1,24 +1,27 @@
+
+#ifndef TRANSLATOR_INCLUDED
+#define TRANSLATOR_INCLUDED
 #include <string>
+#include "Hex.h"
 using namespace std;
 
 class Instruction {
   public:
     string keyword;
     int format;
-    string opcode;
-    //Change these strings to Hexes when that class is done
+    Hex opcode;
     
     Instruction(){
       keyword = 0;
       format = 0;
       opcode = 0;
-    }
+    }//end constructor
     
     Instruction(string keyword, int format, string opcode){
       Instruction::keyword = keyword;
       Instruction::format = format;
-      Instruction::opcode = opcode;
-    }
+      Instruction::opcode = Hex(opcode);
+    }//end good constructor
 };
 
 Instruction[59] instructionDB = {
@@ -81,7 +84,7 @@ Instruction[59] instructionDB = {
 		Instruction("TIX",3,"2C"),
 		Instruction("TIXR",2,"B8"),
 		Instruction("WD",3,"DC")
-	};
+	};//End array of instructions
 	
 Instruction getInstruction(string subject){
   //If subject is in instructionDB's keywords, return the corresponding instance.  Else return 0.
