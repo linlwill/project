@@ -5,14 +5,14 @@ The assembler for CSCI30000
 
 As I mentioned on Thursday, the primary problem with making real progress is that I don't know where to start.  In its most basic form, we want a thing that takes code in the form
 
-          START     0
-          LDA       #10
-          LDX       #0
-     LOOP COMPR     A,X       .This program loops around ten times doing nothing else
-          JEQ       OUT
-          SUB       #1
-          J         LOOP
-     OUT  END
+     0         START     0
+     1         LDA       #10
+     2         LDX       #0
+     3    LOOP COMPR     A,X       .This program loops around ten times doing nothing else
+     4         JEQ       OUT
+     5         SUB       #1
+     6         J         LOOP
+     7    OUT  END
 
 And turns it into a file in the form
 
