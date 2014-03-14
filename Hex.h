@@ -96,7 +96,15 @@ int Hex::toInt(string input){
     }//end for  
     return result;
   } else {
-    //Hexadecimal
+    //Hexadecimal - ID if letter or number.  If number, handle just like bin.  If letter, same but do - 87 since a=97.  Allow [0].
+    for (int i = input.length()-1; i+1, i--){
+      digit = input[i];
+      if (digit >= 'a') digit -= 87;
+      else digit -= '0';
+      result += digit*pow(16,count);
+      cout++;
+    }//end for
+    return result;
   }//end condition
 }//end toInt
 
