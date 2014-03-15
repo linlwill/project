@@ -34,7 +34,7 @@ We need to compute desiredTarget, aka what the programmer WANTS.  With no punctu
 With e=1, the operand is once again exactly what the programmer wants.  With @, there's some dereferencing going on, but that's machine-level.  Code-level, we don't care.  Use operand as desired address.
 
 So it's effortless to find what we want.  Now we need to find out what we need.  There's a Rolling Stones joke in there somewhere.  If e=1 or i=1, what we need is what we want.  If not, check if what we want is within range of where we are. operands are 12bit and thus range in [0,4095] or [-2048,2047].  Therefore, check whether:
-(PC - 2048) <= what we want <= (PC + 2047).  If true, P=1 and need = (PC-want).  I will have to implement a way to handle negative numbers, which ATM the Hex class can't do.
+(PC - 2048) <= what we want <= (PC + 2047).  If true, P=1 and need = (PC-want).  
 If that range is false, check if BASE has been set.  This is done through an assembler directive, and is conditional to sets of lines of code, so in pass one create ranges of BaseBlocks, which contain starting points, ending points, and values.  If (a start) < current location <= (the end) and value <= want <= (value+4095), then B=1 and need = (want - value)
 If none of these conditions are true, then the address is unreachable and an error message should be thrown.
 
@@ -43,5 +43,7 @@ The object code string is thus, in abstract:
 
 Thus, the work that must be done to generate object strings is:
 -Obtain the hex of the operator (DONE)
--Obtain the flag bits nixe based on text
--Obtain p, b, and address based on flag bits, value of operator, current location, and state of Base.
+-Obtain the flag bits nixe based on text (DONE)
+-Obtain p, b, and address based on flag bits, value of operator, current location, and state of Base. (DONE)
+
+Well that was fun.  Now that the flag bits can be obtained, we can work on obtaining the object code itself.  FBbp() can be used to turn want into need; it returns bp but we don't *have* to use it.  However, it does need to know what we want... in the form of a number.  Labels will be handled by LabelTable, a SymbolTable.  SymbolTables use [label] to return a number.  When we see that we're dealing with a label, we can make an int, grab the label's value, and run it through FBpe.  Now we have an integer that can be turned into a Hex() and added to a string of object code.
