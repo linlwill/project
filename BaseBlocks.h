@@ -26,7 +26,7 @@ void startBaseBlock(int address, int value){
   //iff there isn't a block open already, open one with corresponding values.
   if (!openBaseBlock){
     openBaseBlock = true;
-    BaseBlockList.add();
+    BaseBlockList.add(BaseBlock(address,value));
   }//end if
 }//end startblock
 
