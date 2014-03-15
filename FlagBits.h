@@ -8,7 +8,7 @@
 
 namespace fb {
 
-std::string FBnix(std::string* operand){
+std::string nix(std::string* operand){
     std::string result = "000";
     if ((*operand)[0] == '#'){
         //immediate
@@ -47,9 +47,9 @@ std::string pb(int* want, int current){
     return "01";
   }//out of range for PC relative.  Maybe we can use Base.
   
-  else if (inBaseBlock(current)){
+  else if (Base::inBlock(current)){
     //Out of range for PC relative, but we're in a base block so there's hope.  No negatives tolerated here.
-    unsigned int bvariance = want - getBase(current);
+    unsigned int bvariance = want - Base::getBase(current);
     if (bvariance < 4095){
       //Jackpot.  We can use Base addressing to reach the desired address.
       *want = bvariance;
