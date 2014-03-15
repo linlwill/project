@@ -83,7 +83,7 @@ void Hex::operator--(int inc){
 string Hex::getHex(){
   //Divide value by 16.  The remainder is the rightmost digit.  Divide the quotient by 16.  Repeat.  When quo = 0, stop. Handle 0 as a special case.
   if (!value) return "0";
-  int quo = value;
+  unsigned int quo = value;
   int rem;
   string finished = "";
   while (quo){
