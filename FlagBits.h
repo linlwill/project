@@ -5,10 +5,11 @@
 #define FLAGBITS_INCLUDED
 #include <string>
 #include "BaseBlocks.h"
-using namespace std;
 
-string FBnix(string* operand){
-    string result = "000";
+namespace fb {
+
+std::string FBnix(std::string* operand){
+    std::string result = "000";
     if ((*operand)[0] == '#'){
         //immediate
         result[1] = '1';
@@ -29,7 +30,7 @@ string FBnix(string* operand){
     } return result;
 }//end nix
 
-char FBe(string* operator){
+char e(std::string* operator){
   if ((*operator)[0] != '+') return '0';
   else {
     (*operator).erase(0,1);
@@ -37,7 +38,7 @@ char FBe(string* operator){
   }//end else
 }//end e
 
-string FBpb(int* want, int current){
+std::string pb(int* want, int current){
   //Assume this is being called in the context of actually needing a b or a p, and knowing where we want to go.
   //b is unsigned, varying in [0,4095].  p is signed, varying in [-2048,2047]
   int variance = *want - current;
@@ -59,4 +60,5 @@ string FBpb(int* want, int current){
   return "";
 }//end pb
 
+}//end namespace
 #endif
