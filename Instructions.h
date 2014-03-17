@@ -2,19 +2,18 @@
 #define INSTRUCTIONS_INCLUDED
 #include <string>
 #include "Hex.h"
-using namespace std;
 
 class Instruction {
   public:
-    string keyword;
+    std::string keyword;
     int format;
     Hex opcode;
-    
+
     Instruction(){
     	//Cricket sounds
     }//end constructor
-    
-    Instruction(string keyword, int format, string opcode){
+
+    Instruction(std::string keyword, int format, std::string opcode){
       Instruction::keyword = keyword;
       Instruction::format = format;
       Instruction::opcode = Hex(opcode);
@@ -82,8 +81,8 @@ Instruction instructionDB[59] = {
 		Instruction("TIXR",2,"B8"),
 		Instruction("WD",3,"DC")
 	};//End array of instructions
-	
-Instruction getInstruction(string subject){
+
+Instruction getInstruction(std::string subject){
   //If subject is in instructionDB's keywords, return the corresponding instance.  Else return 0.
   for (int i = 0; i < 59; i++){
     if (subject == instructionDB[i].keyword) return instructionDB[i];
