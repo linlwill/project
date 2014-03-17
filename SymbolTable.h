@@ -5,25 +5,24 @@
 #ifndef SYMBOLTABLE_INCLUDED
 #define SYMBOLTABLE_INCLUDED
 #include <string>
-using namespace std;
 
 class SymbolTable{
   struct Symbol {
     int value;
-    string keyword;
+    std::string keyword;
     Symbol* next;
   };//end struct
-  
+
   private:
     Symbol* first;
-  
+
   public:
     SymbolTable();
     ~SymbolTable();
-    bool contains(string keyword);
-    int operator[](string keyword);
-    bool add(string keyword, int address);
-    
+    bool contains(std::string keyword);
+    int operator[](std::string keyword);
+    bool add(std::string keyword, int address);
+
 };//end class
 
 SymbolTable::SymbolTable(){
@@ -41,7 +40,7 @@ SymbolTable::~SymbolTable(){
   }//end while
 }//end deconstructor
 
-bool SymbolTable::contains(string keyword){
+bool SymbolTable::contains(std::string keyword){
   //Go through the list.  if Label.keyword == keyword, return true.  If the loop exits, return false
   Symbol* next = first;
   while(next){
@@ -51,7 +50,7 @@ bool SymbolTable::contains(string keyword){
   return false;
 }//end contains
 
-bool SymbolTable::add(string keyword, int value){
+bool SymbolTable::add(std::string keyword, int value){
   //Search table for the keyword.  If exists, return false.  Else, create new node and add to top of list, return true.
   if (contains(keyword)) return false;
   else {
@@ -64,7 +63,7 @@ bool SymbolTable::add(string keyword, int value){
   }//end else
 }//end add
 
-int SymbolTable::operator[](string keyword){
+int SymbolTable::operator[](std::string keyword){
   //Search the list for a node with the keyword.  If found, return that address.  If not found, return -1 as a flag.
   Symbol* next = first;
   while (next){
