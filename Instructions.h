@@ -2,6 +2,7 @@
 #define INSTRUCTIONS_INCLUDED
 #include <string>
 #include "Hex.h"
+#include "SymbolTable.h"
 
 class Instruction {
   public:
@@ -20,22 +21,38 @@ class Instruction {
     }//end good constructor
 };
 
+SymbolTable M2Reg = SymbolTable();
+bool M2RegInitialized = false;
+void initM2Reg(){
+    if (::M2RegInitialized) return;
+    ::M2RegInitialized = true;
+    M2Reg.add("A",0);
+    M2Reg.add("X",1);
+    M2Reg.add("L",2);
+    M2Reg.add("PC",8);
+    M2Reg.add("SW",9);
+    M2Reg.add("B",3);
+    M2Reg.add("S",4);
+    M2Reg.add("T",5);
+    M2Reg.add("F",6);
+}//end blatant hack
+
 Instruction instructionDB[59] = {
 		Instruction("ADD",3,"18"),
 		Instruction("ADDF",3,"58"),
 		Instruction("ADDR",2,"90"),
 		Instruction("AND",3,"40"),
-		Instruction("CLEAR",2,"B4"),
+		Instruction("CLEAR",2,"b4"),
 		Instruction("COMP",3,"28"),
 		Instruction("COMPF",3,"88"),
-		Instruction("COMPR",2,"A0"),
+		Instruction("COMPR",2,"a0"),
 		Instruction("DIV",3,"24"),
 		Instruction("DIVF",3,"64"),
-		Instruction("DVIR",2,"9C"),
-		Instruction("FIX",1,"C4"),
-		Instruction("FLOAT",1,"C0"),
-		Instruction("HIO",1,"F4"),
-		Instruction("J",3,"3C"),
+		Instruction("DVIR",2,"9c"),
+		Instruction("FIX",1,"c4"),
+		Instruction("FLOAT",1,"c0"),
+		Instruction("HIO",1,"f4"),
+		Instruction("J",3,"3c"),
 		Instruction("JEQ",3,"30"),
 		Instruction("JGT",3,"34"),
 		Instruction("JLT",3,"38"),
@@ -45,41 +62,41 @@ Instruction instructionDB[59] = {
 		Instruction("LDCH",3,"50"),
 		Instruction("LDF",3,"70"),
 		Instruction("LDL",3,"08"),
-		Instruction("LDS",3,"6C"),
+		Instruction("LDS",3,"6c"),
 		Instruction("LDT",3,"74"),
 		Instruction("LDX",3,"04"),
-		Instruction("LPS",3,"D0"),
+		Instruction("LPS",3,"d0"),
 		Instruction("MUL",3,"20"),
 		Instruction("MULF",3,"60"),
 		Instruction("MULR",2,"98"),
-		Instruction("NORM",1,"C8"),
+		Instruction("NORM",1,"c8"),
 		Instruction("OR",3,"44"),
-		Instruction("RD",3,"D8"),
-		Instruction("RMO",2,"AC"),
-		Instruction("RSUB",3,"4C"),
-		Instruction("SHIFTL",2,"A4"),
-		Instruction("SHIFTR",2,"A8"),
-		Instruction("SIO",1,"F0"),
-		Instruction("SSK",3,"EC"),
-		Instruction("STA",3,"0C"),
+		Instruction("RD",3,"d8"),
+		Instruction("RMO",2,"ac"),
+		Instruction("RSUB",3,"4c"),
+		Instruction("SHIFTL",2,"a4"),
+		Instruction("SHIFTR",2,"a8"),
+		Instruction("SIO",1,"f0"),
+		Instruction("SSK",3,"ec"),
+		Instruction("STA",3,"0c"),
 		Instruction("STB",3,"78"),
 		Instruction("STCH",3,"54"),
 		Instruction("STF",3,"80"),
-		Instruction("STI",3,"D4"),
+		Instruction("STI",3,"d4"),
 		Instruction("STL",3,"14"),
-		Instruction("STS",3,"7C"),
-		Instruction("STSW",3,"E8"),
+		Instruction("STS",3,"7c"),
+		Instruction("STSW",3,"e8"),
 		Instruction("STT",3,"84"),
 		Instruction("STX",3,"10"),
-		Instruction("SUB",3,"1C"),
-		Instruction("SUBF",3,"5C"),
+		Instruction("SUB",3,"1c"),
+		Instruction("SUBF",3,"5c"),
 		Instruction("SUBR",2,"94"),
-		Instruction("SVC",2,"B0"),
-		Instruction("TD",3,"E0"),
-		Instruction("TIO",1,"F8"),
-		Instruction("TIX",3,"2C"),
-		Instruction("TIXR",2,"B8"),
-		Instruction("WD",3,"DC")
+		Instruction("SVC",2,"b0"),
+		Instruction("TD",3,"e0"),
+		Instruction("TIO",1,"f8"),
+		Instruction("TIX",3,"2c"),
+		Instruction("TIXR",2,"b8"),
+		Instruction("WD",3,"dc")
 	};//End array of instructions
 
 Instruction getInstruction(std::string subject){
