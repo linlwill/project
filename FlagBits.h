@@ -38,7 +38,7 @@ char e(std::string* operator){
   }//end else
 }//end e
 
-std::string pb(int* want, int current){
+std::string bp(int* want, int current){
   //Assume this is being called in the context of actually needing a b or a p, and knowing where we want to go.
   //b is unsigned, varying in [0,4095].  p is signed, varying in [-2048,2047]
   int variance = *want - current;
