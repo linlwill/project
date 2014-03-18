@@ -12,6 +12,7 @@ class Hex {
     static int toInt(std::string input);
     int value;
     std::string getHex();
+    std::string getHex(int len);
 
     Hex();
     Hex(int start);
@@ -92,6 +93,12 @@ std::string Hex::getHex(){
   }//end while
   return finished;
 }//end getHex
+
+std::string Hex::getHex(int len){
+  std::string temp = getHex();
+  while (temp.length() < len) temp = '0'+temp;
+  return temp;
+}//end forced-length getHex
 
 int Hex::toInt(std::string input){
   //Return the base-10 of input interpreted as hex.  If leading-char of input is B (NOT b), interpret as binary
