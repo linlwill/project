@@ -4,13 +4,13 @@
 #include "LinkedList.h"
 //Divide a string up by a demarkation char. Return a linked list full of those blocks.
 
-LinkedList<std::string> divideString(std::string input, char demark){
+LinkedList<std::string> divideString(std::string input, char demark, bool continuous = true){
     LinkedList<std::string> list = LinkedList<std::string>();
     std::string buffer = "";
     for (int i = 0; i < input.length(); i++){
         if (input[i] == demark){
-            //Forget continuity.  Do it later.  Dump temp into the list and reset.
-            if (buffer.length()){
+            //Doing continuous, strings of demarks count as one.  Turn cont off, and Hello!!World demarked with '!' will make a list {"Hello","","World"}
+            if (buffer.length() || !continuous){
                 list.add(buffer);
                 buffer = "";
             }//end if
