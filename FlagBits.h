@@ -7,6 +7,9 @@
 #include "BaseBlocks.h"
 
 namespace fb {
+///    string nix(string* operand);
+///    char e(string* opor);
+///    string pb(int* want, int current);
 
 std::string nix(std::string* operand){
     std::string result = "000";
@@ -30,10 +33,10 @@ std::string nix(std::string* operand){
     } return result;
 }//end nix
 
-char e(std::string* operator){
-  if ((*operator)[0] != '+') return '0';
+char e(std::string* opor){
+  if ((*opor)[0] != '+') return '0';
   else {
-    (*operator).erase(0,1);
+    (*opor).erase(0,1);
     return '1';
   }//end else
 }//end e
@@ -46,17 +49,17 @@ std::string bp(int* want, int current){
     *want = variance;
     return "01";
   }//out of range for PC relative.  Maybe we can use Base.
-  
+
   else if (Base::inBlock(current)){
     //Out of range for PC relative, but we're in a base block so there's hope.  No negatives tolerated here.
-    unsigned int bvariance = want - Base::getBase(current);
+    unsigned int bvariance = *want - Base::getBase(current);
     if (bvariance < 4095){
       //Jackpot.  We can use Base addressing to reach the desired address.
       *want = bvariance;
       return "10";
     }//
   }//out of range for Base relative.  All hope is lost.
-  
+
   return "";
 }//end pb
 
