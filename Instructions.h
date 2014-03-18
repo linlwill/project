@@ -27,15 +27,15 @@ namespace Reg {
 	void initDB(){
 	    if (Reg::DBisOn) return;
 	    Reg::DBisOn = true;
-	    M2Reg.add("A",0);
-	    M2Reg.add("X",1);
-	    M2Reg.add("L",2);
-	    M2Reg.add("PC",8);
-	    M2Reg.add("SW",9);
-	    M2Reg.add("B",3);
-	    M2Reg.add("S",4);
-	    M2Reg.add("T",5);
-	    M2Reg.add("F",6);
+	    DB.add("A",0);
+	    DB.add("X",1);
+	    DB.add("L",2);
+	    DB.add("PC",8);
+	    DB.add("SW",9);
+	    DB.add("B",3);
+	    DB.add("S",4);
+	    DB.add("T",5);
+	    DB.add("F",6);
 	}//end blatant hack
 }//end namespace
 
