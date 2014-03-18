@@ -1,3 +1,6 @@
+#ifndef OBJECTCODEMAKER_INCLUDED
+#define OBJECTCODEMAKER_INCLUDED
+
 #include "StringDemarkation.h"
 #include "Instructions.h"
 #include "FlagBits.h"
@@ -92,3 +95,4 @@ std::string objectCode(std::string lineOfCode, int currentAddress){
 
     return objCode;
 }
+#endif
