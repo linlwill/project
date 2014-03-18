@@ -4,7 +4,7 @@
 #ifndef FLAGBITS_INCLUDED
 #define FLAGBITS_INCLUDED
 #include <string>
-#include "BaseBlocks.h"
+#include "Base.h"
 
 namespace fb {
 ///    string nix(string* operand);
