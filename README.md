@@ -54,3 +54,6 @@ Heap wasn't that hard.  Not sure if we'll need it for this though.  Anyway, a di
 
 Thus, to turn a line of code into object code: divide it by whitespace, if operand is numbers roll with it, if letters grab it from the LabelTable.  Feed operator/operand into nixbpe.  Concatinate to taste and serve with a side of horseradish.  Suggested wine pairings include merlot and cabernet. 
 Modes 2 and 1 are a lot simpler.  2 involved grabbing register values from a new DB I put in the Instructions header, including an annoying init function that exists to get around C++'s weirdness.  1 was nothing at all.  We now have a way to convert a line of assembly code into a line of hexidecimal with nothing more than a single function call.  It has no support for line numbers or comments, but large amounts of deal with it are forthcoming.
+
+*WHERE TO GO FROM HERE*
+The objective I had on Thursday, implement a way to turn assembly code into object code, is complete.  We can now turn our eyes to the stars and think about the assembler as a whole.  Our next big challenge is identifying and processing assembler directives.  There are a lot of those, so at first I want to just be able to identify them.
