@@ -10,7 +10,6 @@ SymbolTable LabelTable = SymbolTable();
 std::string objectCode(std::string lineOfCode, int currentAddress){
     //Determine the instruction mode.  This will dictate the rest of the show.
     std::string objCode = "";
-    LinkedList<std::string> strBlocks = divideString(lineOfCode,' ');
     std::string opor;
     std::string opand;
     std::string label = "";
@@ -24,6 +23,11 @@ std::string objectCode(std::string lineOfCode, int currentAddress){
     } else if (blockCount == 2) {
         opor = strBlocks[1];
         opand = strBlocks[0];
+        //There's a possibility here of a mode1 instruction with a label.  If that's the case, opor is [0] and label is [1]
+        if (getInstruction(opand).format == 1){
+            opor = strBlocks[0];
+            label = strBlocks[1];
+        }//end exception
     } else if (blockCount == 1){
         opor = strBlocks[0];
     } else return "!!! ERROR IN DIVIDING STRING FOR OBJECT CODE !!!";
