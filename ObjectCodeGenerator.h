@@ -9,6 +9,7 @@ SymbolTable LabelTable = SymbolTable();
 
 std::string objectCode(std::string lineOfCode, int currentAddress){
     //Determine the instruction mode.  This will dictate the rest of the show.
+    LinkedList<std::string> strBlocks = divideString(lineOfCode,' ');
     std::string objCode = "";
     std::string opor;
     std::string opand;
