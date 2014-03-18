@@ -1,88 +1,66 @@
-//This is my LinkedList class from programming project 1.  Only change is I made the top node public since that's the easist way to grab it in base blocks.
 #ifndef LINKEDLIST_INCLUDED
 #define LINKEDLIST_INCLUDED
-#include <iostream>
 template <typename T>
-class LinkedList {
+class LinkedList{
     struct Node {
-        T content;
         Node* next;
+        T content;
     };
     private:
+        Node* top;
         int length;
+
+        Node& last(){
+            //Assume being called in a non-empty scenerio
+            //if (!top) return Node;
+
+            Node* temp = top;
+            while ((*temp).next) temp = (*temp).next;
+            return *temp;
+        }//end last
     public:
-        Node* first;
-    
         LinkedList(){
-            first = 0;
+            top = 0;
             length = 0;
         }//end constructor
-
         ~LinkedList(){
-            //Nodes are on the heap, so delete them all.  N time.
-            Node* temp = first;
-            while (first){
-                temp = (*first).next;
-                delete first;
-                first = temp;
+            Node* temp;
+            while (top){
+                temp = (*top).next;
+                delete top;
+                top = temp;
             }//end while
         }//end deconstructor
 
-        void add(T a){
-        //append to the TOP of the list.  Constant time instead of N time.  May throw off expectations, but for this project early/late additions being first is irrelevant
-            Node* pTemp = new Node;
-            (*pTemp).next = first;
-            (*pTemp).content = a;
-            first = pTemp;
-            length++;
-        }//end add
-
-        T operator[](int i){
-        //Return the ith element.  N time.
-            if (i < length){
-                Node* temp = first;
-                while(i){
-                    i--;
-                    temp = (*temp).next;
-                }//end while
-                return (*temp).content;
-            }//end if
-            else {
-                std::cout << "Index out of bounds" << std::endl;
-                return T();
-            }//end else
-        }//end get
-
-        bool contains(T a){
-        //Return true if any of the nodes holds a as its content.  N time.
-            Node* temp = first;
-            while (temp){
-                if ((*temp).content == a) return true;
-                temp = (*temp).next;
-            }//end while
-            return false;
-        }//end contains
-
         int getLength(){
             return length;
-        }//end length
+        }//end getLength
 
-        void remove(int i){
-            //remove the ith element.
-            if (i < length){
-                Node* theNode = first;
-                Node* nodesParent = 0;
-                while (i){
-                    nodesParent = theNode;
-                    theNode = (*theNode).next;
-                    i--;
-                }//end while
-                //Set the parent's next to the node's next.  If we're at the top, move the top.  Then delete the node.
-                if (nodesParent) (*nodesParent).next = (*theNode).next;
-                else first = (*theNode).next;
-                delete theNode;
-                length--;
-            } else std::cout << "Index out of bounds" << std::endl;
-        }//end remove
+        void add(T a){
+            length++;
+            Node* newNode = new Node;
+            (*newNode).next = 0;
+            (*newNode).content = a;
+
+            if (!top) top = newNode;
+            else last().next = newNode;
+        }//end add
+
+        bool contains(T a){
+            Node* temp = top;
+            while (temp){
+                if ((*temp).content == a) return true;
+            } return false;
+        }//end contains
+
+        T operator[](int i){
+            if (i >= length) return T();
+            Node* temp = top;
+            while (i){
+                i--;
+                temp = (*temp).next;
+            }//end while
+            return (*temp).content;
+        }//end get
 };
 #endif
