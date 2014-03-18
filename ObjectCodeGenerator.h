@@ -40,7 +40,7 @@ std::string objectCode(std::string lineOfCode, int currentAddress){
     }//end mode 1 - easy mode
 
     else if (theInst.format == 2){
-        initM2Reg();
+        Reg::initDB();
         objCode += theInst.opcode.getHex();
         //Operand will be the two registers to act on demarked by ,
         LinkedList<std::string> registers = divideString(opand,',');
@@ -48,9 +48,9 @@ std::string objectCode(std::string lineOfCode, int currentAddress){
         std::string R1 = registers[1];
         std::string R2 = registers[0];
         //Add each register's value in hex to the string.
-        if ( (!M2Reg.contains(R1)) && (!M2Reg.contains(R2)) ) return "!!! ERROR: UNRECOGNIZED REGISTER IN MODE2 OBJECT CODE !!!";
-        objCode += Hex(M2Reg[R1]).getHex();
-        objCode += Hex(M2Reg[R2]).getHex();
+        if ( (!Reg::DB.contains(R1)) && (!Reg::DB.contains(R2)) ) return "!!! ERROR: UNRECOGNIZED REGISTER IN MODE2 OBJECT CODE !!!";
+        objCode += Hex(Reg::DB[R1]).getHex();
+        objCode += Hex(Reg::DB[R2]).getHex();
     }//end mode 2 - Medium mode
 
     else if (theInst.format == 3){
