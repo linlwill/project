@@ -37,7 +37,7 @@ class LinkedList {
             length++;
         }//end add
 
-        T& operator[](int i){
+        T operator[](int i){
         //Return the ith element.  N time.
             if (i < length){
                 Node* temp = first;
