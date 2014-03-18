@@ -21,21 +21,23 @@ class Instruction {
     }//end good constructor
 };
 
-SymbolTable M2Reg = SymbolTable();
-bool M2RegInitialized = false;
-void initM2Reg(){
-    if (::M2RegInitialized) return;
-    ::M2RegInitialized = true;
-    M2Reg.add("A",0);
-    M2Reg.add("X",1);
-    M2Reg.add("L",2);
-    M2Reg.add("PC",8);
-    M2Reg.add("SW",9);
-    M2Reg.add("B",3);
-    M2Reg.add("S",4);
-    M2Reg.add("T",5);
-    M2Reg.add("F",6);
-}//end blatant hack
+namespace Reg {
+	SymbolTable DB = SymbolTable();
+	bool DBisOn = false;
+	void initDB(){
+	    if (Reg::DBisOn) return;
+	    Reg::DBisOn = true;
+	    M2Reg.add("A",0);
+	    M2Reg.add("X",1);
+	    M2Reg.add("L",2);
+	    M2Reg.add("PC",8);
+	    M2Reg.add("SW",9);
+	    M2Reg.add("B",3);
+	    M2Reg.add("S",4);
+	    M2Reg.add("T",5);
+	    M2Reg.add("F",6);
+	}//end blatant hack
+}//end namespace
 
 Instruction instructionDB[59] = {
 		Instruction("ADD",3,"18"),
