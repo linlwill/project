@@ -37,7 +37,10 @@ std::string objectCode(std::string lineOfCode, int currentAddress){
     } else return "!!! ERROR IN DIVIDING STRING FOR OBJECT CODE !!!";
     //end define segments
 
+    //Run e now so the non+ operator can be passed into getInstruction.  Error if not in mode 3 afterwards
+    char e = fb::e(&opor);
     Instruction theInst = getInstruction(opor);
+    if ( (e == '1') && (theInst.format != 3) ) return "!!! ERROR: EXTENDED FORMAT USED IN NON-EXTENDABLE INSTRUCTION !!!";
 
     if (theInst.format == 1){
         return theInst.opcode.getHex();
@@ -60,7 +63,6 @@ std::string objectCode(std::string lineOfCode, int currentAddress){
     else if (theInst.format == 3){
         //Address is what we WANT, not what we NEED.  However, flagbits' bp() converts them silently.
         std::string nix = fb::nix(&opand);
-        char e = fb::e(&opor);
         std::string bp;
 
         int address;
