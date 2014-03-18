@@ -43,12 +43,12 @@ std::string objectCode(std::string lineOfCode, int currentAddress = 0){
     if ( (e == '1') && (theInst.format != 3) ) return "!!! ERROR: EXTENDED FORMAT USED IN NON-EXTENDABLE INSTRUCTION !!!";
 
     if (theInst.format == 1){
-        return theInst.opcode.getHex();
+        return theInst.opcode.getHex(2);
     }//end mode 1 - easy mode
 
     else if (theInst.format == 2){
         Reg::initDB();
-        objCode += theInst.opcode.getHex();
+        objCode += theInst.opcode.getHex(2);
         //Operand will be the two registers to act on demarked by ,
         LinkedList<std::string> registers = divideString(opand,',');
         if (registers.getLength() != 2) return "!!! ERROR: INVALID OPERAND FOR TYPE-2 INSTRUCTION !!!";
@@ -88,11 +88,10 @@ std::string objectCode(std::string lineOfCode, int currentAddress = 0){
         bin += e;
         Hex xbpe = Hex(bin);
 
-        std::string finalAddr = Hex(address).getHex();
         int len = 3 + (e - '0')*2;
-        while (finalAddr.length() < len) finalAddr = '0'+finalAddr;
+        std::string finalAddr = Hex(address).getHex(len);
 
-        objCode += (opcode.getHex()+xbpe.getHex()+finalAddr);
+        objCode += (opcode.getHex(2)+xbpe.getHex()+finalAddr);
     }//end mode 3 - Hard mode
 
     return objCode;
