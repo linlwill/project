@@ -1,7 +1,7 @@
 #ifndef OBJECTCODEMAKER_INCLUDED
 #define OBJECTCODEMAKER_INCLUDED
 
-#include "StringDemarkation.h"
+#include "DivideString.h"
 #include "Instructions.h"
 #include "FlagBits.h"
 #include "SymbolTable.h"
