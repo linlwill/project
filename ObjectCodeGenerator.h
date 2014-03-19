@@ -21,19 +21,20 @@ std::string objectCode(std::string lineOfCode, int currentAddress = 0){
 
     if (blockCount == 3){
         //indexing in the list is backwards.  Last is first.
-        label = strBlocks[2];
+        //HAHA NOPE!  Indexing is forwards now. Glad I caught this.
+        label = strBlocks[0];
         opor = strBlocks[1];
-        opand = strBlocks[0];
+        opand = strBlocks[2];
     } else if (blockCount == 2) {
-        opor = strBlocks[1];
-        opand = strBlocks[0];
+        opor = strBlocks[0];
+        opand = strBlocks[1];
         //There's a possibility here of a mode1 instruction with a label.  If that's the case, opor is [0] and label is [1]
         if (getInstruction(opand).format == 1){
-            opor = strBlocks[0];
-            label = strBlocks[1];
+            opor = strBlocks[1];
+            label = strBlocks[0];
         }//end exception
     } else if (blockCount == 1){
-        opor = strBlocks[0];
+        opor = strBlocks[1];
     } else return "!!! ERROR IN DIVIDING STRING FOR OBJECT CODE !!!";
     //end define segments
 
