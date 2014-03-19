@@ -38,7 +38,7 @@ void startBlock(int address, int value){
 }//end startblock
 
 void endBlock(int address){
-  //iff there is an open block, grab to the top of the list and set its end to end.  Then close the block.
+  //iff there is an open block, finish the block and add it to the list
   if (openBaseBlock){
     openBaseBlock = false;
     BaseBlockList.add(BaseBlock(buffer[0],buffer[1],address));
@@ -47,23 +47,17 @@ void endBlock(int address){
 
 bool inBlock(int address){
   //O(N) search of the base blocks checking if address is in bounds
-  BaseBlock bTemp = BaseBlock();
-  BaseBlock& temp = bTemp;
   for (int i = 0; i < BaseBlockList.getLength(); i++){
-    temp = BaseBlockList[i];
     //if ((address >= (*temp).startAddress)&&(address <= (*temp).endAddress)) return true;
-    if ((address >= temp.startAddress)&&(address <= temp.endAddress)) return true;
+    if ((address >= BaseBlockList[i].startAddress)&&(address <= BaseBlockList[i].endAddress)) return true;
   }//end for
   return false;
 }//end inblock
 
 int getBase(int address){
   //Another search just like inblock.  This time return value.  Return -1 on not found, so this could be used as bool too.
-  BaseBlock bTemp = BaseBlock();
-  BaseBlock& temp = bTemp;
   for (int i = 0; i < BaseBlockList.getLength(); i++){
-    temp = BaseBlockList[i];
-    if ((address >= temp.startAddress)&&(address <= temp.endAddress)) return temp.value;
+    if ((address >= BaseBlockList[i].startAddress)&&(address <= BaseBlockList[i].endAddress)) return temp.value;
   }//end for
   return -1;
 }//end getBase
