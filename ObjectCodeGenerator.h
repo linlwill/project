@@ -53,8 +53,8 @@ std::string objectCode(std::string lineOfCode, int currentAddress = 0){
         //Operand will be the two registers to act on demarked by ,
         LinkedList<std::string> registers = divideString(opand,',');
         if (registers.getLength() != 2) return "!!! ERROR: INVALID OPERAND FOR TYPE-2 INSTRUCTION !!!";
-        std::string R1 = registers[1];
-        std::string R2 = registers[0];
+        std::string R1 = registers[0];
+        std::string R2 = registers[1];
         //Add each register's value in hex to the string.
         if ( (!Reg::DB.contains(R1)) && (!Reg::DB.contains(R2)) ) return "!!! ERROR: UNRECOGNIZED REGISTER IN MODE2 OBJECT CODE !!!";
         objCode += Hex(Reg::DB[R1]).getHex();
