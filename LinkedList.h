@@ -50,6 +50,7 @@ class LinkedList{
             Node* temp = top;
             while (temp){
                 if ((*temp).content == a) return true;
+                temp = (*temp).next;
             } return false;
         }//end contains
 
