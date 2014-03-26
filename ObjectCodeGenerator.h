@@ -50,7 +50,7 @@ std::string objectCode(std::string lineOfCode, int currentAddress = 0){
 
     //Run e now so the non+ operator can be passed into getInstruction.  Error if not in mode 3 afterwards
     char e = fb::e(&opor);
-    Instruction theInst = getInstruction(opor);
+    Instruction theInst = instruction::get(opor);
     if ( (e == '1') && (theInst.format != 3) ) throw CodeGenerationException("EXTENDED FORMAT USED IN NON-EXTENDABLE INSTRUCTION");
 
     switch(theInst.format){
