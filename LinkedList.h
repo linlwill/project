@@ -1,5 +1,10 @@
 #ifndef LINKEDLIST_INCLUDED
 #define LINKEDLIST_INCLUDED
+class NotInListException{
+    public:
+        NotInListException(){}
+};
+
 template <typename T>
 class LinkedList{
     struct Node {
@@ -55,7 +60,7 @@ class LinkedList{
         }//end contains
 
         T operator[](int i){
-            if (i >= length) return T();
+            if (i >= length) throw NotInListException();
             Node* temp = top;
             while (i){
                 i--;
