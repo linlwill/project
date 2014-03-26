@@ -126,7 +126,7 @@ namespace instruction {
 	bool DBinitialized = false;
 	void initDB(){
 		if (DBinitialized) return;
-		DBinitialized = true;
+		instruction::DBinitialized = true;
 		DB["ADD"]=Instruction(3,"18");
 		DB["ADDF"]=Instruction(3,"58");
 		DB["ADDR"]=Instruction(2,"90");
@@ -189,6 +189,7 @@ namespace instruction {
 	}//end init
 	
 	Instruction get(std::string label){
+		initDB();
 		return DB[label];
 	}//end get
 }//end namespace
