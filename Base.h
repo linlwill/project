@@ -2,6 +2,12 @@
 #define BASE_INCLUDED
 #include "LinkedList.h"
 //Provide functions to begin and end base blocks, then later check if where they are is in a block and if so, what that block's value is
+
+class NotInBaseException(){
+  public:
+    NotInBaseException(){}
+};//end error
+
 namespace Base {
 
 class BaseBlock{
@@ -38,7 +44,7 @@ void startBlock(int address, int value){
 }//end startblock
 
 void endBlock(int address){
-  //iff there is an open block, grab to the top of the list and set its end to end.  Then close the block.
+  //iff there is an open block, finish the block and add it to the list
   if (openBaseBlock){
     openBaseBlock = false;
     BaseBlockList.add(BaseBlock(buffer[0],buffer[1],address));
@@ -47,11 +53,9 @@ void endBlock(int address){
 
 bool inBlock(int address){
   //O(N) search of the base blocks checking if address is in bounds
-  BaseBlock bTemp = BaseBlock();
-  BaseBlock& temp = bTemp;
   for (int i = 0; i < BaseBlockList.getLength(); i++){
-    temp = BaseBlockList[i];
     //if ((address >= (*temp).startAddress)&&(address <= (*temp).endAddress)) return true;
+    BaseBlock temp = BaseBlockList[i];
     if ((address >= temp.startAddress)&&(address <= temp.endAddress)) return true;
   }//end for
   return false;
@@ -59,13 +63,11 @@ bool inBlock(int address){
 
 int getBase(int address){
   //Another search just like inblock.  This time return value.  Return -1 on not found, so this could be used as bool too.
-  BaseBlock bTemp = BaseBlock();
-  BaseBlock& temp = bTemp;
   for (int i = 0; i < BaseBlockList.getLength(); i++){
-    temp = BaseBlockList[i];
+    BaseBlock temp = BaseBlockList[i];
     if ((address >= temp.startAddress)&&(address <= temp.endAddress)) return temp.value;
   }//end for
-  return -1;
+  throw NotInBaseException();
 }//end getBase
 
 }//end namespace

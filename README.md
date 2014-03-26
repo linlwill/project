@@ -57,3 +57,6 @@ Modes 2 and 1 are a lot simpler.  2 involved grabbing register values from a new
 
 *WHERE TO GO FROM HERE*
 The objective I had on Thursday, implement a way to turn assembly code into object code, is complete.  We can now turn our eyes to the stars and think about the assembler as a whole.  Our next big challenge is identifying and processing assembler directives.  There are a lot of those, so at first I want to just be able to identify them.
+
+I updated most of the files to include four new C++ technologies I learned about: map, an STL template that basically is my SymbolTable, foo->bar, a way of accessing items through pointers that previously I was emulating with (*foo).bar, switches, control flow tools that previously I was emulating through if-else if-else blocks, and exception handling, which previously I was emulating by returning empty objects and/or returning strings with "!!! ERROR !!!" in them.
+Functionality has not changed, but readability and professionalism has vastly improved.

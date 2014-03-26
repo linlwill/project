@@ -1,5 +1,10 @@
 #ifndef LINKEDLIST_INCLUDED
 #define LINKEDLIST_INCLUDED
+class NotInListException{
+    public:
+        NotInListException(){}
+};
+
 template <typename T>
 class LinkedList{
     struct Node {
@@ -15,7 +20,7 @@ class LinkedList{
             //if (!top) return Node;
 
             Node* temp = top;
-            while ((*temp).next) temp = (*temp).next;
+            while (temp->next) temp = temp->next;
             return *temp;
         }//end last
     public:
@@ -26,7 +31,7 @@ class LinkedList{
         ~LinkedList(){
             Node* temp;
             while (top){
-                temp = (*top).next;
+                temp = top->next;
                 delete top;
                 top = temp;
             }//end while
@@ -39,8 +44,8 @@ class LinkedList{
         void add(T a){
             length++;
             Node* newNode = new Node;
-            (*newNode).next = 0;
-            (*newNode).content = a;
+            newNode->next = 0;
+            newNode->content = a;
 
             if (!top) top = newNode;
             else last().next = newNode;
@@ -49,19 +54,19 @@ class LinkedList{
         bool contains(T a){
             Node* temp = top;
             while (temp){
-                if ((*temp).content == a) return true;
-                temp = (*temp).next;
+                if (temp->content == a) return true;
+                temp = temp->next;
             } return false;
         }//end contains
 
         T operator[](int i){
-            if (i >= length) return T();
+            if (i >= length) throw NotInListException();
             Node* temp = top;
             while (i){
                 i--;
-                temp = (*temp).next;
+                temp = temp->next;
             }//end while
-            return (*temp).content;
+            return temp->content;
         }//end get
 };
 #endif

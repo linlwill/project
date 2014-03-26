@@ -1,0 +1,4 @@
+#ifndef MACROSINCLUDED
+#define MACROSINCLUDED
+
+#endif
