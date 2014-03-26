@@ -2,6 +2,12 @@
 #define BASE_INCLUDED
 #include "LinkedList.h"
 //Provide functions to begin and end base blocks, then later check if where they are is in a block and if so, what that block's value is
+
+class NotInBaseException(){
+  public:
+    NotInBaseException(){}
+};//end error
+
 namespace Base {
 
 class BaseBlock{
@@ -49,7 +55,8 @@ bool inBlock(int address){
   //O(N) search of the base blocks checking if address is in bounds
   for (int i = 0; i < BaseBlockList.getLength(); i++){
     //if ((address >= (*temp).startAddress)&&(address <= (*temp).endAddress)) return true;
-    if ((address >= BaseBlockList[i].startAddress)&&(address <= BaseBlockList[i].endAddress)) return true;
+    BaseBlock temp = BaseBlockList[i];
+    if ((address >= temp.startAddress)&&(address <= temp.endAddress)) return true;
   }//end for
   return false;
 }//end inblock
@@ -57,9 +64,10 @@ bool inBlock(int address){
 int getBase(int address){
   //Another search just like inblock.  This time return value.  Return -1 on not found, so this could be used as bool too.
   for (int i = 0; i < BaseBlockList.getLength(); i++){
-    if ((address >= BaseBlockList[i].startAddress)&&(address <= BaseBlockList[i].endAddress)) return temp.value;
+    BaseBlock temp = BaseBlockList[i];
+    if ((address >= temp.startAddress)&&(address <= temp.endAddress)) return temp.value;
   }//end for
-  return -1;
+  throw NotInBaseException();
 }//end getBase
 
 }//end namespace
