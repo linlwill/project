@@ -1,3 +1,6 @@
+///DEPRICIATED
+///ALL FUNCTIONALITY IS BETTER DONE BY STL'S MAP TEMPLATE
+
 //This is a data structure that holds symbols and their corresponding values.
 //When a symbol is found, it can be added to this along with the value it represents.
 //Later, when a symbol is encountered, it can be used as a key to return that value.
