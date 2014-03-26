@@ -4,11 +4,11 @@
 #include "DivideString.h"
 #include "Instructions.h"
 #include "FlagBits.h"
-#include "SymbolTable.h"
+#include <map>
 #include <sstream>
 //From a line of assembly code, return a hexidecimal string corresponding to the machine-code equivilent.
 //No preview, because only a single function: string objectCode(string lineOfCode, int currentAddress).  LabelTable is here because it is referenced here.  It won't be here in the long run.
-SymbolTable LabelTable = SymbolTable();
+map<std::string,int> LabelTable;
 
 std::string objectCode(std::string lineOfCode, int currentAddress = 0){
     //Determine the instruction mode.  This will dictate the rest of the show.
