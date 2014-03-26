@@ -6,7 +6,7 @@
 
 class Instruction {
   public:
-    std::string keyword;
+    //std::string keyword;
     int format;
     Hex opcode;
 
@@ -14,8 +14,8 @@ class Instruction {
     	//Cricket sounds
     }//end constructor
 
-    Instruction(std::string keyword, int format, std::string opcode){
-      Instruction::keyword = keyword;
+    Instruction(/*std::string keyword, */int format, std::string opcode){
+      //Instruction::keyword = keyword;
       Instruction::format = format;
       Instruction::opcode = Hex(opcode);
     }//end good constructor
@@ -57,7 +57,7 @@ namespace Reg {
 		DB["F"] = 6;
 	}//end init
 }//end namespace
-
+/*
 Instruction instructionDB[59] = {
 		Instruction("ADD",3,"18"),
 		Instruction("ADDF",3,"58"),
@@ -119,7 +119,80 @@ Instruction instructionDB[59] = {
 		Instruction("TIXR",2,"b8"),
 		Instruction("WD",3,"dc")
 	};//End array of instructions
+*/
 
+namespace instruction {
+	map<std::string,Instruction> DB;
+	bool DBinitialized = false;
+	void initDB(){
+		if (DBinitialized) return;
+		DBinitialized = true;
+		DB["ADD"]=Instruction(3,"18");
+		DB["ADDF"]=Instruction(3,"58");
+		DB["ADDR"]=Instruction(2,"90");
+		DB["AND"]=Instruction(3,"40");
+		DB["CLEAR"]=Instruction(2,"b4");
+		DB["COMP"]=Instruction(3,"28");
+		DB["COMPF"]=Instruction(3,"88");
+		DB["COMPR"]=Instruction(2,"a0");
+		DB["DIV"]=Instruction(3,"24");
+		DB["DIVF"]=Instruction(3,"64");
+		DB["DVIR"]=Instruction(2,"9c");
+		DB["FIX"]=Instruction(1,"c4");
+		DB["FLOAT"]=Instruction(1,"c0");
+		DB["HIO"]=Instruction(1,"f4");
+		DB["J"]=Instruction(3,"3c");
+		DB["JEQ"]=Instruction(3,"30");
+		DB["JGT"]=Instruction(3,"34");
+		DB["JLT"]=Instruction(3,"38");
+		DB["JSUB"]=Instruction(3,"48");
+		DB["LDA"]=Instruction(3,"00");
+		DB["LDB"]=Instruction(3,"68");
+		DB["LDCH"]=Instruction(3,"50");
+		DB["LDF"]=Instruction(3,"70");
+		DB["LDL"]=Instruction(3,"08");
+		DB["LDS"]=Instruction(3,"6c");
+		DB["LDT"]=Instruction(3,"74");
+		DB["LDX"]=Instruction(3,"04");
+		DB["LPS"]=Instruction(3,"d0");
+		DB["MUL"]=Instruction(3,"20");
+		DB["MULF"]=Instruction(3,"60");
+		DB["MULR"]=Instruction(2,"98");
+		DB["NORM"]=Instruction(1,"c8");
+		DB["OR"]=Instruction(3,"44");
+		DB["RD"]=Instruction(3,"d8");
+		DB["RMO"]=Instruction(2,"ac");
+		DB["RSUB"]=Instruction(3,"4c");
+		DB["SHIFTL"]=Instruction(2,"a4");
+		DB["SHIFTR"]=Instruction(2,"a8");
+		DB["SIO"]=Instruction(1,"f0");
+		DB["SSK"]=Instruction(3,"ec");
+		DB["STA"]=Instruction(3,"0c");
+		DB["STB"]=Instruction(3,"78");
+		DB["STCH"]=Instruction(3,"54");
+		DB["STF"]=Instruction(3,"80");
+		DB["STI"]=Instruction(3,"d4");
+		DB["STL"]=Instruction(3,"14");
+		DB["STS"]=Instruction(3,"7c");
+		DB["STSW"]=Instruction(3,"e8");
+		DB["STT"]=Instruction(3,"84");
+		DB["STX"]=Instruction(3,"10");
+		DB["SUB"]=Instruction(3,"1c");
+		DB["SUBF"]=Instruction(3,"5c");
+		DB["SUBR"]=Instruction(2,"94");
+		DB["SVC"]=Instruction(2,"b0");
+		DB["TD"]=Instruction(3,"e0");
+		DB["TIO"]=Instruction(1,"f8");
+		DB["TIX"]=Instruction(3,"2c");
+		DB["TIXR"]=Instruction(2,"b8");
+		DB["WD"]=Instruction(3,"dc");		
+	}//end init
+	
+	Instruction get(std::string label){
+		return DB[label];
+	}//end get
+}//end namespace
+/*
 Instruction getInstruction(std::string subject){
   //If subject is in instructionDB's keywords, return the corresponding instance.  Else return 0.
   for (int i = 0; i < 59; i++){
@@ -127,4 +200,5 @@ Instruction getInstruction(std::string subject){
   }//end for
   return Instruction();
 }//end getInstruction
+*/
 #endif
