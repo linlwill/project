@@ -2,7 +2,7 @@
 #define INSTRUCTIONS_INCLUDED
 #include <string>
 #include "Hex.h"
-#include "SymbolTable.h"
+#include <map>
 
 class Instruction {
   public:
@@ -20,7 +20,7 @@ class Instruction {
       Instruction::opcode = Hex(opcode);
     }//end good constructor
 };
-
+/*
 namespace Reg {
 	SymbolTable DB = SymbolTable();
 	bool DBisOn = false;
@@ -37,6 +37,25 @@ namespace Reg {
 	    DB.add("T",5);
 	    DB.add("F",6);
 	}//end blatant hack
+}//end namespace
+*/
+
+namespace Reg {
+	map<std::string,int> DB;
+	bool DBisOn = false;
+	void initDB(){
+		if (Reg::DBisOn) return;
+		Reg::DBisOn = true;
+		DB["A"] = 0;
+		DB["X"] = 1;
+		DB["L"] = 2;
+		DB["PC"] = 8;
+		DB["SW"] = 9;
+		DB["B"] = 3;
+		DB["S"] = 4;
+		DB["T"] = 5;
+		DB["F"] = 6;
+	}//end init
 }//end namespace
 
 Instruction instructionDB[59] = {
