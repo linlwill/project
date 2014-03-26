@@ -6,6 +6,11 @@
 #include <string>
 #include "Base.h"
 
+class OutOfRangeException{
+    public:
+        OutOfRangeException(){}
+};//end exception
+
 namespace fb {
 ///    string nix(string* operand);
 ///    char e(string* opor);
@@ -60,7 +65,7 @@ std::string bp(int* want, int current){
     }//
   }//out of range for Base relative.  All hope is lost.
 
-  return "";
+  throw OutOfRangeException();
 }//end pb
 
 }//end namespace
