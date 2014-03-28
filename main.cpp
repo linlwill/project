@@ -28,7 +28,7 @@ for (line in file){
       opor = blockList[label];
       
       theInst = instructions::get(opor);
-      CurrentAddress += (theInst.format + fb::e(line,false) - '0');
+      CurrentAddress += (theInst.format + fb::e(line,false) );
     case 3://Directive.  Operator is first block, or second if label. Operands follow.  0 is always the label.
       blockList = divideString(line,' ');
       opor = blockList[label];
