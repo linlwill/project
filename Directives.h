@@ -31,8 +31,8 @@ namespace directives {
       //Set the base to be the operand.  Or call empty to close any bases. 
       std::string opand = opands[1];
       //There is no harm in calling close even if there isn't one open.
-      Base::endBlock(CURRENTADDRESS);
-      if (opand != "") Base::startBlock(opand,CURRENTADDRESS);
+      Base::endBlock(primary::CurrentAddress);
+      if (opand != "") Base::startBlock(opand,primary::CurrentAddress);
     }//end base
     
     else if (opor == "EQU"){
