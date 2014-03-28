@@ -47,6 +47,14 @@ namespace Reg {
 }//end namespace
 */
 
+class UnrecognizedRegisterException{
+  public:
+    std::string errorCode;
+    UnrecognizedRegisterException(std::string code = ""){
+      errorCode = code;
+    }
+};//end exception
+
 namespace Reg {
 	map<std::string,int> DB;
 	bool DBisOn = false;
@@ -63,6 +71,13 @@ namespace Reg {
 		DB["T"] = 5;
 		DB["F"] = 6;
 	}//end init
+	
+	int get(std::string keyword){
+		initDB();
+		int out = DB[keyword];
+		if (!out && (keyword != "A")) throw UnrecognizedRegisterException(keyword);
+		return out;
+	}//end get
 }//end namespace
 /*
 Instruction instructionDB[59] = {
@@ -128,7 +143,7 @@ Instruction instructionDB[59] = {
 	};//End array of instructions
 */
 
-namespace instruction {
+namespace instructions {
 	map<std::string,Instruction> DB;
 	bool DBinitialized = false;
 	void initDB(){
