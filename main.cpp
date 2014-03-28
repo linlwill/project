@@ -1,4 +1,3 @@
-
 std::string* args;
 std::string block;
 LinkedList<std::string> blockList;
@@ -28,7 +27,7 @@ for (line in file){
       args = new std::string[argCount];
       if (label) args[0] = blockList[0];
       //For nonzero arguments, go one by one through the directive's demanded operands.
-      for (int i = 1; i < argCount; i++) args[i] = blockList[label+i];
+      for (int i = 1; i <= argCount; i++) args[i] = blockList[label+i];
       directives::process(block,args);
       delete[] args;
     case 0://Exception.  NBD here.
