@@ -1,6 +1,7 @@
 namespace primary {
   
-int ::CurrentAddress;
+int CurrentAddress;
+std::string startLabel;
   
 std::string* args;
 std::string opor;
