@@ -36,8 +36,12 @@ for (line in file){
       argCount = directives::get(opor)-1+label;
       args = new std::string[argCount];
       if (label) args[0] = blockList[0];
-      //For nonzero arguments, go one by one through the directive's demanded operands.
-      for (int i = 1; i <= argCount; i++) args[i] = blockList[label+i];
+      //For nonzero arguments, go one by one through the directive's demanded operands.  It's possible to run out of blocks here, like BASE asking for one but allowing none, so use LinkedList's exception handling.
+      try{
+        for (int i = 1; i <= argCount; i++) args[i] = blockList[label+i];
+      } catch(NotInListException){
+        //Cricket sounds
+      }//end exceptions
       directives::process(opor,args);
       delete[] args;
     case 0://Exception.  NBD here.
