@@ -56,7 +56,9 @@ int passOne(std::string& line){
   if (isValid(directives::get(block))) return 2;
   
   //If neither directive or instruction, handle as a label, add it to the table.  
-  labelTable[block] = CURRENTADDRESS
+  labelTable[block] = ::CurrentAddress
+  //If current is 0, it can cause problems with verification.
+  if (::CurrentAddress == 0) ::startLabel = block;
   
   
   //Move to the next block. Check again for instruction or directive.
