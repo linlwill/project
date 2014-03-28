@@ -1,4 +1,3 @@
-
 namespace primary {
   
 int ::CurrentAddress;
@@ -53,7 +52,7 @@ for (line in file){
     case 1://Directive.  Do nothing.
       continue;
     case 3://Instruction.  Grab object code and... do something with it.
-      block = objectCode(line);
+      block = objectCode(line,label);
     case 5://Macro.  Expand it.
       macros::expand(line);
     case 0://Exception.  Now we worry.
