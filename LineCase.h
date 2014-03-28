@@ -32,11 +32,11 @@ bool isValid(Macro a){
 
 int passOne(std::string& line){
   //1,2 = instruction.  3,4 = directive.  0 = unknown.  Even -> has a label.
-  LinkedList<std::string> blockList = divideString(' ');
+  LinkedList<std::string> blockList = divideString(line,' ');
   int blockCount = blockList.getLength();
   int workingBlock = 0;
   std::string block;
-  std::string* arguments;
+  std::string* label;
   //Special: line numbers are included.  Strip them from the string.
   if (isNumber(blockList[0][0])){
     int end = line.getLength();
@@ -53,16 +53,16 @@ int passOne(std::string& line){
   UPDATE_BLOCK
   
   if (isValid(instruction::get(block))) return 1;
-  if (isValid(directives::get(block))) return 3;
+  if (isValid(directives::get(block))) return 2;
   
-  //If neither directive or instruction, handle as a label.  Note that CURRENTLINE is a placeholder.
-  labelTable[block] = CURRENTLINE;
+  //If neither directive or instruction, handle as a label, add it to the table.  
+  labelTable[block] = CURRENTADDRESS
   
   
   //Move to the next block. Check again for instruction or directive.
   UPDATE_BLOCK;
   
-  if (isValid(instruction::get(block))) return 2;
+  if (isValid(instruction::get(block))) return 3;
   if (isValid(directives::get(block))) return 4;
   
   //If we're here, we're dealing with an unknown.  That's fine, we could be seeing a macro invocation that isn't called until later.  Return as unknown.
@@ -72,7 +72,7 @@ int passOne(std::string& line){
 char* passTwo(std::string line){
   //1,2 = directive.  3,4 = instruction.  5,6 = macro invocation.  Even -> has a label.
   //Don't need reference here because line numbers will have been purged in pass one.
-  LinkedList<std::string> blockList = divideString(' ');
+  LinkedList<std::string> blockList = divideString(line,' ');
   int workingBlock = 0;
   std::string block = blockList[workingBlock];
   bool label = false;
