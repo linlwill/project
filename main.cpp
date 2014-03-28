@@ -1,7 +1,13 @@
+
+namespace primary {
+  
+int ::CurrentAddress;
+  
 std::string* args;
-std::string block;
+std::string opor;
 LinkedList<std::string> blockList;
 int label, state, workingBlock, argCount;
+Instruction theInst;
 
 class UnrecognizedLineException{
   public:
@@ -17,18 +23,22 @@ for (line in file){
   
   //Even states are the same as their odds, but they have labels.  
   switch (state - label){
-    case 1://Instruction.  Do nothing.
-      continue;
+    case 1://Instruction.  Increment current location by instruction mode + e of the line
+      blockList = divideString(line,' ');
+      opor = blockList[label];
+      
+      theInst = instructions::get(opor);
+      ::CurrentAddress += (theInst.format + fb::e(line,false) - '0');
     case 3://Directive.  Operator is first block, or second if label. Operands follow.  0 is always the label.
       blockList = divideString(line,' ');
-      block = blockList[label];
+      opor = blockList[label];
       
-      argCount = directives::get(block)-1+label;
+      argCount = directives::get(opor)-1+label;
       args = new std::string[argCount];
       if (label) args[0] = blockList[0];
       //For nonzero arguments, go one by one through the directive's demanded operands.
       for (int i = 1; i <= argCount; i++) args[i] = blockList[label+i];
-      directives::process(block,args);
+      directives::process(opor,args);
       delete[] args;
     case 0://Exception.  NBD here.
       continue;
@@ -50,3 +60,5 @@ for (line in file){
       throw UnrecognizedLineException(line);
   }//end switch
 }//end pass two
+
+}//end namespace
