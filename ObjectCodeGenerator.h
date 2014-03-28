@@ -52,12 +52,12 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
             int address;
             //Convert operand into a numerical address.  What we "want".  If it's a number, just conver it to an int as-is.
             if ((opand[0] >= '0') && (opand[0] <= '9')) std::stringstream(opand) >> address;
-            else if (LabelTable[opand] || (::startLabel == opand)) address = LabelTable[opand];
+            else if (LabelTable[opand] || (primary::startLabel == opand)) address = LabelTable[opand];
             else throw CodeGenerationException("UNRECOGNIZED LABEL IN MODE3 OBJECT CODE");
     
             //If we're in I or E, we don't need b or p.  Otherwise, we do.
             if ( (nix[1]-'0') || e ) bp = "00";
-            else bp = fb::bp(&address,::CurrentAddress);
+            else bp = fb::bp(&address, primary::CurrentAddress);
     
             //nixbpe have been set, and opor and opand have been modified accordingly.  Assemble the string.
             Hex opcode = theInst.opcode;
