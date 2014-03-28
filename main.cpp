@@ -1,6 +1,5 @@
 
 
-
 std::string* args;
 std::string block;
 LinkedList<std::string> blockList;
@@ -30,6 +29,7 @@ for (line in file){
       args = new std::string[argCount];
       for (int i = 0; i < argCount; i++) args[i] = blockList[label+i];
       directives::process(block,args);
+      delete[] args;
     case 0://Exception.  NBD here.
       continue;
   }//end switch
