@@ -55,7 +55,7 @@ class UnrecognizedRegisterException{
     }
 };//end exception
 
-namespace Reg {
+namespace reg {
 	map<std::string,int> DB;
 	bool DBisOn = false;
 	void initDB(){
