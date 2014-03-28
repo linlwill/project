@@ -5,17 +5,24 @@
 #include <map>
 
 class Instruction {
+  private:
+    bool valid;
   public:
     //std::string keyword;
     int format;
     Hex opcode;
+    
+    bool isValid(){
+    	return valid;
+    }//end validation check.  Screw ambiguity.
 
     Instruction(){
-    	//Cricket sounds
+    	valid = false;
     }//end constructor
 
     Instruction(/*std::string keyword, */int format, std::string opcode){
       //Instruction::keyword = keyword;
+      valid = true;
       Instruction::format = format;
       Instruction::opcode = Hex(opcode);
     }//end good constructor
