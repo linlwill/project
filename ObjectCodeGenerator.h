@@ -57,7 +57,7 @@ std::string objectCode(std::string lineOfCode, int currentAddress = 0){
         case 1:
             objCode = theInst.opcode.getHex(2);
         case 2:
-            Reg::initDB();
+            
             objCode += theInst.opcode.getHex(2);
             //Operand will be the two registers to act on demarked by ,
             LinkedList<std::string> registers = divideString(opand,',');
@@ -65,9 +65,8 @@ std::string objectCode(std::string lineOfCode, int currentAddress = 0){
             std::string R1 = registers[0];
             std::string R2 = registers[1];
             //Add each register's value in hex to the string.
-            if ( (!Reg::DB.contains(R1)) && (!Reg::DB.contains(R2)) ) throw CodeGenerationException("UNRECOGNIZED REGISTER IN MODE2 OBJECT CODE");
-            objCode += Hex(Reg::DB[R1]).getHex();
-            objCode += Hex(Reg::DB[R2]).getHex();
+            objCode += Hex(reg::get(R1)).getHex();
+            objCode += Hex(reg::get(R2)).getHex();
         case 3:
             //Address is what we WANT, not what we NEED.  However, flagbits' bp() converts them silently.
             std::string nix = fb::nix(&opand);
