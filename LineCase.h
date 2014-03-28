@@ -81,7 +81,7 @@ char* passTwo(std::string line){
   int state;
   
   //Firstly: is it a label?  If so, ignore.
-  if (isValid(labelTable[block])){
+  if (isValid(labelTable[block]) || (block == ::startLabel)){
     UPDATE_BLOCK;
     label = true;
   }//end label case
