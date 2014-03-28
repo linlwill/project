@@ -18,46 +18,23 @@ class CodeGenerationException {
         }//end constructor
 };//end exception
 
-std::string objectCode(std::string lineOfCode, int currentAddress = 0){
+std::string objectCode(std::string lineOfCode, int hasLabel){
     //Determine the instruction mode.  This will dictate the rest of the show.
     LinkedList<std::string> strBlocks = divideString(lineOfCode,' ');
     std::string objCode = "";
-    std::string opor;
-    std::string opand;
-    std::string label = "";
     int blockCount = strBlocks.getLength();
+    
+    Instruction theInst = instruction::get(strBlocks[hasLabel]);
+    std::string opand = strBlocks[hasLabel+1];
 
-    switch (blockCount){
-        case 3:
-            //indexing in the list is backwards.  Last is first.
-            //HAHA NOPE!  Indexing is forwards now. Glad I caught this.
-            label = strBlocks[0];
-            opor = strBlocks[1];
-            opand = strBlocks[2];
-        case 2:
-            opor = strBlocks[0];
-            opand = strBlocks[1];
-            //There's a possibility here of a mode1 instruction with a label.  If that's the case, opor is [0] and label is [1]
-            if (getInstruction(opand).format == 1){
-                opor = strBlocks[1];
-                label = strBlocks[0];
-            }//end exception
-        case 1:
-            opor = strBlocks[1];
-        default:
-            throw(CodeGenerationException("UNSUPPORTED BLOCK COUNT"));
-    }//end define switch
-
-    //Run e now so the non+ operator can be passed into getInstruction.  Error if not in mode 3 afterwards
-    char e = fb::e(&opor);
-    Instruction theInst = instruction::get(opor);
-    if ( (e == '1') && (theInst.format != 3) ) throw CodeGenerationException("EXTENDED FORMAT USED IN NON-EXTENDABLE INSTRUCTION");
+    //Run e now.  Error if not in mode 3 and e
+    int e = fb::e(&opor);
+    if ( e && (theInst.format != 3) ) throw CodeGenerationException("EXTENDED FORMAT USED IN NON-EXTENDABLE INSTRUCTION");
 
     switch(theInst.format){
         case 1:
             objCode = theInst.opcode.getHex(2);
         case 2:
-            
             objCode += theInst.opcode.getHex(2);
             //Operand will be the two registers to act on demarked by ,
             LinkedList<std::string> registers = divideString(opand,',');
@@ -75,12 +52,12 @@ std::string objectCode(std::string lineOfCode, int currentAddress = 0){
             int address;
             //Convert operand into a numerical address.  What we "want".  If it's a number, just conver it to an int as-is.
             if ((opand[0] >= '0') && (opand[0] <= '9')) std::stringstream(opand) >> address;
-            else if (LabelTable.contains(opand)) address = LabelTable[opand];
+            else if (LabelTable[opand] || (::startLabel == opand)) address = LabelTable[opand];
             else throw CodeGenerationException("UNRECOGNIZED LABEL IN MODE3 OBJECT CODE");
     
             //If we're in I or E, we don't need b or p.  Otherwise, we do.
-            if ((nix[1]-'0')||(e-'0')) bp = "00";
-            else bp = fb::bp(&address,currentAddress);
+            if ( (nix[1]-'0') || e ) bp = "00";
+            else bp = fb::bp(&address,::CurrentAddress);
     
             //nixbpe have been set, and opor and opand have been modified accordingly.  Assemble the string.
             Hex opcode = theInst.opcode;
