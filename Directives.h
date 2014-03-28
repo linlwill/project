@@ -1,24 +1,12 @@
 #ifndef DIRECTIVES_INCLUDED
 #define DIRECTIVES_INCLUDED
 #include <string>
-#include <BinarySearchTree.h>
+#include <map>
 
 namespace directives {
-//Keep a BST of all directive names.
-BinarySearchTree<std::string> DB = BinarySearchTree<std::string>();
-bool DBinitialized = false;
-void initDB(){
-  if (DBinitialized) return;
-  directives::DBinitialized = true;
-  DB.add("START");
-  DB.add("END");
-  DB.add("BYTE");
-  DB.add("RESB");
-  DB.add("WORD");
-  DB.add("RESW");
-  DB.add("BASE");
-  DB.add("EQU");
-}//end init
+  //Keyword will map to an integer referring to 1+ how many arguments the directive takes.  1+ is necessary so 0 can be "does not include" instead of "no arguments"
+  map<std::string,int> DB;
+
 
 }//end namespace
 #endif
