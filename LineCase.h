@@ -58,7 +58,7 @@ int passOne(std::string& line){
   //If neither directive or instruction, handle as a label, add it to the table.  
   labelTable[block] = ::CurrentAddress
   //If current is 0, it can cause problems with verification.
-  if (::CurrentAddress == 0) ::startLabel = block;
+  if (primary::CurrentAddress == 0) primary::startLabel = block;
   
   
   //Move to the next block. Check again for instruction or directive.
@@ -81,7 +81,7 @@ char* passTwo(std::string line){
   int state;
   
   //Firstly: is it a label?  If so, ignore.
-  if (isValid(labelTable[block]) || (block == ::startLabel)){
+  if (isValid(labelTable[block]) || (block == primary::startLabel)){
     UPDATE_BLOCK;
     label = true;
   }//end label case
