@@ -1,5 +1,4 @@
 
-
 std::string* args;
 std::string block;
 LinkedList<std::string> blockList;
@@ -21,13 +20,15 @@ for (line in file){
   switch (state - label){
     case 1://Instruction.  Do nothing.
       continue;
-    case 3://Directive.  Operator is first block, or second if label. Operands follow.
+    case 3://Directive.  Operator is first block, or second if label. Operands follow.  0 is always the label.
       blockList = divideString(line,' ');
       block = blockList[label];
       
-      argCount = directives::get(block)-1;
+      argCount = directives::get(block)-1+label;
       args = new std::string[argCount];
-      for (int i = 0; i < argCount; i++) args[i] = blockList[label+i];
+      if (label) args[0] = blockList[0];
+      //For nonzero arguments, go one by one through the directive's demanded operands.
+      for (int i = 1; i < argCount; i++) args[i] = blockList[label+i];
       directives::process(block,args);
       delete[] args;
     case 0://Exception.  NBD here.
