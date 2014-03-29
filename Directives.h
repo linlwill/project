@@ -42,6 +42,13 @@ namespace directives {
       labelTable[opands[0]] = value;
     }//end equ
     
+    else if (opor == "START"){
+      //The operand is where to start the program, as an integer.  Later this function can be expanded to handle control sections/program blocks.
+      int value;
+      std::stringstream(opands[1]) >> value;
+      primary::CurrentAddress = value;
+    }//end start
+    
   }//end process
 
 }//end namespace
