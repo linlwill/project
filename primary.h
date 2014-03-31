@@ -5,6 +5,6 @@
 namespace primary{
     std::map<std::string,int> labelTable;
     int CurrentAddress, startingAddress, label, state, workingBlock, argCount;
-    std::string startLabel,
+    std::string startLabel;
 }
 #endif
