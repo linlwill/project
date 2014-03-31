@@ -1,12 +1,10 @@
+#include "primary.h"
 namespace primary {
   
-int CurrentAddress;
-int startingAddress;
-std::string startLabel, opor;
+std::string opor;
 std::string* args;
 
 LinkedList<std::string> blockList;
-int label, state, workingBlock, argCount;
 
 class UnrecognizedLineException{
   public:
