@@ -4,17 +4,11 @@
 #include "DivideString.h"
 #include "Instructions.h"
 #include "FlagBits.h"
-#include <map>
+#include "primary.h"
 #include <sstream>
-//Prototype the primary namespace
-namespace primary {
-    int CurrentAddress;
-    std::string startLabel;
-}//end namespace prototype
 
 //From a line of assembly code, return a hexidecimal string corresponding to the machine-code equivilent.
 //No preview, because only a single function: string objectCode(string lineOfCode, int currentAddress).  LabelTable is here because it is referenced here.  It won't be here in the long run.
-std::map<std::string,int> LabelTable;
 
 class CodeGenerationException {
     public:
@@ -59,7 +53,7 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
         int address;
         //Convert operand into a numerical address.  What we "want".  If it's a number, just conver it to an int as-is.
         if ((opand[0] >= '0') && (opand[0] <= '9')) std::stringstream(opand) >> address;
-        else if (LabelTable[opand] || (primary::startLabel == opand)) address = LabelTable[opand];
+        else if (primary::labelTable[opand] || (primary::startLabel == opand)) address = primary::labelTable[opand];
         else throw CodeGenerationException("UNRECOGNIZED LABEL IN MODE 3 OBJECT CODE");
 
         //If we're in I or E, we don't need b or p.  Otherwise, we do.
