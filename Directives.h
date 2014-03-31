@@ -1,8 +1,7 @@
 #ifndef DIRECTIVES_INCLUDED
 #define DIRECTIVES_INCLUDED
-#include <string>
 #include <math.h>
-#include <map>
+#include "primary.h"
 
 int toInt(std::string a){
     //For every digit, handle as a number using base-10
@@ -46,7 +45,7 @@ namespace directives {
     
     else if (opor == "EQU"){
       //Create a constant, with value label.  Convert string to int and set as map value.
-      labelTable[opands[0]] = toInt(opands[1]);
+      primary::labelTable[opands[0]] = toInt(opands[1]);
     }//end equ
     
     else if (opor == "START"){
