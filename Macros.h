@@ -6,7 +6,7 @@
 namespace macros {
   
 class Macro;
-map<std::string,int> DB;
+std::map<std::string,int> DB;
 void initDB();
 Macro get(std::string keyword);
 
