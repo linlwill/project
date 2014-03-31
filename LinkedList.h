@@ -68,7 +68,7 @@ class LinkedList{
             if ((previousNode)&&(i == previousIndex+1)){
                 previousNode = previousNode->next;
                 previousIndex++;
-                return previousNode->content
+                return previousNode->content;
             }//end constant-access
             Node* temp = top;
             previousIndex = i;
