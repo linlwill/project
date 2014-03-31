@@ -2,10 +2,9 @@ namespace primary {
   
 int CurrentAddress;
 int startingAddress;
-std::string startLabel;
-  
+std::string startLabel, opor;
 std::string* args;
-std::string opor;
+
 LinkedList<std::string> blockList;
 int label, state, workingBlock, argCount;
 
@@ -21,14 +20,17 @@ for (line in file){
   state = lineCase::passOne(line);
   label = state % 2;
   
-  //Even states are the same as their odds, but they have labels.  
-  switch (state - label){
-    case 1://Instruction.  Increment current location by instruction mode + e of the line
+  //Even states are the same as their odds, but they have labels.  Switches are the devil.
+  state -= label;
+  if (state == 1){
+      //Increment current location by instruction mode + e of the line
       blockList = divideString(line,' ');
       opor = blockList[label];
       
-      CurrentAddress += (instructions::get(opor).format + fb::e(line,false) );
-    case 3://Directive.  Operator is first block, or second if label. Operands follow.  0 is always the label.
+      CurrentAddress += (instructions::get(opor).format + fb::e(line,false) );   
+  }//end instruction
+  else if (state == 3){
+      //Directive.  Operator is first block, or second if label. Operands follow.  0 is always the label.
       blockList = divideString(line,' ');
       opor = blockList[label];
       
@@ -44,27 +46,26 @@ for (line in file){
       }//end exceptions
       directives::process(opor,args);
       delete[] args;
-    case 5://Macro.  Start grabbing lines.
-        //Not implemented yet!
-    case 0://Exception.  NBD here.
-      continue;
-  }//end switch
-}//end pass one
+  }//end directive
+  else if (state == 5){
+      //Macro.  Start grabbing lines.
+      //Not implemented yet!
+  }
+
 
 for (line in file){
   state = lineCase::passTwo(line);
   label = state % 2;
+  state -= label;
   
-  switch (state - label){
-    case 1://Directive.  Do nothing.
+  if (state == 1){
       continue;
-    case 3://Instruction.  Grab object code and... do something with it.
+  } else if (state == 3){
       block = objectCode(line,label);
-    case 5://Macro.  Expand it.
-      macros::expand(line);
-    case 0://Exception.  Now we worry.
-      throw UnrecognizedLineException(line);
-  }//end switch
+  } else if (state == 5){
+      //Not implemented
+  } else throw UnrecognizedLineException(line);
+  
 }//end pass two
 
 }//end namespace
