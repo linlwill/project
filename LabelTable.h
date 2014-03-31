@@ -3,6 +3,6 @@
 #include <map>
 #include <string>
 namespace primary{
-  map<std::string,int> labelTable;
+  std::map<std::string,int> labelTable;
 }
 #endif
