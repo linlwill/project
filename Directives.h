@@ -40,7 +40,7 @@ namespace directives {
       std::string opand = opands[1];
       //There is no harm in calling close even if there isn't one open.
       Base::endBlock(primary::CurrentAddress);
-      if (opand != "") Base::startBlock(opand,primary::CurrentAddress);
+      if (opand != "") Base::startBlock(toInt(opand),primary::CurrentAddress);
     }//end base
     
     else if (opor == "EQU"){
