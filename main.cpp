@@ -1,13 +1,13 @@
 namespace primary {
   
 int CurrentAddress;
+int startingAddress;
 std::string startLabel;
   
 std::string* args;
 std::string opor;
 LinkedList<std::string> blockList;
 int label, state, workingBlock, argCount;
-Instruction theInst;
 
 class UnrecognizedLineException{
   public:
@@ -27,8 +27,7 @@ for (line in file){
       blockList = divideString(line,' ');
       opor = blockList[label];
       
-      theInst = instructions::get(opor);
-      CurrentAddress += (theInst.format + fb::e(line,false) );
+      CurrentAddress += (instructions::get(opor).format + fb::e(line,false) );
     case 3://Directive.  Operator is first block, or second if label. Operands follow.  0 is always the label.
       blockList = divideString(line,' ');
       opor = blockList[label];
