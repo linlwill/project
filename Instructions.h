@@ -125,6 +125,11 @@ namespace instructions {
 		DB["TIX"]=Instruction(3,"2c");
 		DB["TIXR"]=Instruction(2,"b8");
 		DB["WD"]=Instruction(3,"dc");
+		//Begin memory management.  Format 0, opcode is length in bytes
+		DB["WORD"] = Instruction(0,"3");
+		DB["BYTE"] = Instruction(0,"1");
+		DB["RESW"] = Instruction(0,"3");
+		DB["RESB"] = Instruction(0,"1");
 	}//end init
 
 	Instruction get(std::string opor){
