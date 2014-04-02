@@ -49,7 +49,7 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
             std::string value = opand.substr(2,opand.length());
             if (id == "X'") return Hex(value).getHex(size);
             else if (id == "B'") return Hex("B"+value).getHex(size);
-            else if (id == "C'") return Hex("C"+value).getHex(size);
+            //else if (id == "C'") return Hex("C"+value).getHex(size);//No support for chars yet
             else{
                 std::string(opand) >> e;
                 return Hex(e).getHex(size);
