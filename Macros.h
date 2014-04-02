@@ -1,12 +1,20 @@
 #ifndef MACROSINCLUDED
 #define MACROSINCLUDED
-#include <map>
-#include <string>
+#include "primary"
+#include "LinkedList.h"
 
 namespace macros {
   
-class Macro;
-std::map<std::string,int> DB;
+class Macro{
+  public:
+    LinkedList<std::string> blocks;
+    LinkedList<void*> defaultArgs;
+    int argCount[2];
+    Macro(){
+        
+    }
+};
+std::map<std::string,Macro> DB;
 void initDB();
 Macro get(std::string keyword);
 
