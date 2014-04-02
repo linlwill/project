@@ -51,7 +51,7 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
             else if (id == "B'") return Hex("B"+value).getHex(size);
             //else if (id == "C'") return Hex("C"+value).getHex(size);//No support for chars yet
             else{
-                std::string(opand) >> e;
+                std::stringstream(opand) >> e;
                 return Hex(e).getHex(size);
             }//end else
         }//end else
