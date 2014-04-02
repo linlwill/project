@@ -105,21 +105,23 @@ int Hex::toInt(std::string input){
   int result = 0;
   int count = 0;
   int digit;
+  int power = 16;
+  
   if (input[0] == 'B'){
-    //Binary.  result += digit*2^count, but binary reads backwards so start at the end.
-    for (int i = input.length()-1; i; i--){
-      digit = input[i] - '0'; //Digit is now the true value of 0 or 1.
-      result += digit*pow(2,count);
-      count++;
-    }//end for
-    return result;
-  } else {
+    input.erase(0,1);
+    power = 2;
+  }//end if binary
+  else if (input[0] == 'I'){
+    input.erase(0,1);
+    power = 10;
+  }//end if integer
+  
     //Hexadecimal - ID if letter or number.  If number, handle just like bin.  If letter, same but do - 87 since a=97.  Allow [0].
-    for (int i = input.length()-1; i+1; i--){
+    for (int i = input.length()-1; i >= 0; i--){
       digit = input[i];
       if (digit >= 'a') digit -= 87;
       else digit -= '0';
-      result += digit*pow(16,count);
+      result += digit*pow(power,count);
       count++;
     }//end for
     return result;
