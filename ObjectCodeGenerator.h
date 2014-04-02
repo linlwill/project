@@ -5,7 +5,6 @@
 #include "Instructions.h"
 #include "FlagBits.h"
 #include "primary.h"
-#include <sstream>
 
 //From a line of assembly code, return a hexidecimal string corresponding to the machine-code equivilent.
 //No preview, because only a single function: string objectCode(string lineOfCode, int currentAddress).  LabelTable is here because it is referenced here.  It won't be here in the long run.
@@ -43,13 +42,15 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
             //Reservation.  Step ahead opand*size bytes.
             std::stringstream(opand) >> e;
             primary::CurrentAddress += e*size;
-        } else {
+        } else {/*
             //Assignment.  Opand is what to initialize to.
             std::string id = opand.substr(0,2);
             std::string value = opand.substr(2,opand.length());
             if (id == "X'") return Hex(value).getHex(size);
             else if (id == "B'") return Hex("B"+value).getHex(size);
-            //else if (id == "C'") return Hex("C"+value).getHex(size);//No support for chars yet
+            //else if (id == "C'") return Hex("C"+value).getHex(size);//No support for chars yet */
+            int value = primary::forceInt(opand);
+            return Hex(value).getHex(size);
             else{
                 std::stringstream(opand) >> e;
                 return Hex(e).getHex(size);
@@ -72,8 +73,12 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
         std::string bp;
 
         int address;
-        //Convert operand into a numerical address.  What we "want".  If it's a number, just conver it to an int as-is.
-        if ((opand[0] >= '0') && (opand[0] <= '9')) std::stringstream(opand) >> address;
+        //Convert operand into a numerical address.  What we "want".  If it's a number prefixed with =, just conver it to an int as-is.
+        if (opand[0] == '='){
+            //Literal.  Don't mess around with labels, use opand as value
+            opand.erase(0,1);
+            address = primary::forceInt(opand);
+        }//end literal
         else if (primary::labelTable[opand] || (primary::startLabel == opand)) address = primary::labelTable[opand];
         else throw CodeGenerationException("UNRECOGNIZED LABEL IN MODE 3 OBJECT CODE");
 
