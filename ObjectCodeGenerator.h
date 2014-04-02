@@ -40,21 +40,11 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
         int size = theInst.opcode.value;
         if (opor.substr(0,3) == "RES"){
             //Reservation.  Step ahead opand*size bytes.
-            std::stringstream(opand) >> e;
-            primary::CurrentAddress += e*size;
-        } else {/*
+            primary::CurrentAddress += primary::forceInt(opand)*size;
+        } else {
             //Assignment.  Opand is what to initialize to.
-            std::string id = opand.substr(0,2);
-            std::string value = opand.substr(2,opand.length());
-            if (id == "X'") return Hex(value).getHex(size);
-            else if (id == "B'") return Hex("B"+value).getHex(size);
-            //else if (id == "C'") return Hex("C"+value).getHex(size);//No support for chars yet */
             int value = primary::forceInt(opand);
             return Hex(value).getHex(size);
-            else{
-                std::stringstream(opand) >> e;
-                return Hex(e).getHex(size);
-            }//end else
         }//end else
     }//end case 0: memory
 
