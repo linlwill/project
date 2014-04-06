@@ -14,6 +14,8 @@ class LinkedList{
     private:
         Node* top;
         int length;
+        Node* previousNode;
+        int previousIndex;
 
         Node& last(){
             //Assume being called in a non-empty scenerio
@@ -27,6 +29,8 @@ class LinkedList{
         LinkedList(){
             top = 0;
             length = 0;
+            previousNode = 0;
+            previousIndex = 0;
         }//end constructor
         ~LinkedList(){
             Node* temp;
@@ -61,11 +65,18 @@ class LinkedList{
 
         T operator[](int i){
             if (i >= length) throw NotInListException();
+            if ((previousNode)&&(i == previousIndex+1)){
+                previousNode = previousNode->next;
+                previousIndex++;
+                return previousNode->content;
+            }//end constant-access
             Node* temp = top;
+            previousIndex = i;
             while (i){
                 i--;
                 temp = temp->next;
             }//end while
+            previousNode = temp;
             return temp->content;
         }//end get
 };

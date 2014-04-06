@@ -12,57 +12,57 @@ class OutOfRangeException{
 };//end exception
 
 namespace fb {
-///    string nix(string* operand);
-///    char e(string* opor);
-///    string pb(int* want, int current);
+///    string nix(string& operand);
+///    int e(string& opor, bool wipe = true);
+///    string pb(int& want, int current);
 
-std::string nix(std::string* operand){
+std::string nix(std::string& operand){
     std::string result = "000";
-    if ((*operand)[0] == '#'){
+    if (operand[0] == '#'){
         //immediate
         result[1] = '1';
-        (*operand).erase(0,1);
-    } else if ((*operand)[0] == '@'){
+        operand.erase(0,1);
+    } else if (operand[0] == '@'){
         //dereferenced
         result[0] = '1';
-        (*operand).erase(0,1);
+        operand.erase(0,1);
     }//end n/i
 
-    char last = (*operand)[(*operand).length()-1];
-    char nextToLast = (*operand)[(*operand).length()-2];
+    char last = operand[operand.length()-1];
+    char nextToLast = operand[operand.length()-2];
 
     if ((last == 'X')&&(nextToLast == ',')){
         result[2] = '1';
-        int end = (*operand).length()-1;
-        (*operand).erase(end-1,end);
+        int end = operand.length()-1;
+        operand.erase(end-1,end);
     } return result;
 }//end nix
 
-char e(std::string* opor){
-  if ((*opor)[0] != '+') return '0';
+int e(std::string& opor, bool wipe = true){
+  if (opor[0] != '+') return 0;
   else {
-    (*opor).erase(0,1);
-    return '1';
+    if (wipe) opor.erase(0,1);
+    return 1;
   }//end else
 }//end e
 
-std::string bp(int* want, int current){
+std::string bp(int& want, int current){
   //Assume this is being called in the context of actually needing a b or a p, and knowing where we want to go.
   //b is unsigned, varying in [0,4095].  p is signed, varying in [-2048,2047]
-  int variance = *want - current;
+  int variance = want - current;
   if ((variance < 2047)&&(variance > -2048)){
-    *want = variance;
+    want = variance;
     return "01";
   }//out of range for PC relative.  Maybe we can use Base.
 
   else if (Base::inBlock(current)){
     //Out of range for PC relative, but we're in a base block so there's hope.  No negatives tolerated here.
-    unsigned int bvariance = *want - Base::getBase(current);
+    unsigned int bvariance = want - Base::getBase(current);
     if (bvariance < 4095){
       //Jackpot.  We can use Base addressing to reach the desired address.
-      *want = bvariance;
+      want = bvariance;
       return "10";
-    }//
+    }//end if
   }//out of range for Base relative.  All hope is lost.
 
   throw OutOfRangeException();

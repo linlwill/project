@@ -3,7 +3,7 @@
 #include "LinkedList.h"
 //Provide functions to begin and end base blocks, then later check if where they are is in a block and if so, what that block's value is
 
-class NotInBaseException(){
+class NotInBaseException{
   public:
     NotInBaseException(){}
 };//end error
