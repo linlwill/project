@@ -4,20 +4,32 @@
 #include <string>
 #include "LinkedList.h"
 #include "Hex.h"
+#include <sstream>
 
 namespace primary{
     std::map<std::string,int> labelTable;
     int CurrentAddress, startingAddress, label, state, workingBlock, argCount;
     std::string startLabel;
-    
-    
+
+
     int forceInt(std::string input){
         //Evaluate based on integer, hexidecimal, binary, {char, or arithmatic} input.
-        std::string id = input.substr(0,2);
-        int end = 1;//(input[length()-1] == 39) ? 1:0;
-        if (id == "X'") return Hex.toInt(input.substr(2,input.length()-end));
-        else if (id == "B'") return Hex.toInt("B"+input.substr(2,input.length()-end));
-        else return Hex.toInt("I"+input);
+        std::string id = input.substr(0,2), working;
+        if (id == "X'"){
+            //Grab the significant characters and pass it to Hex's toInt
+            working = input.substr(2,input.length()-3);
+            return Hex::toInt(working);
+        } else if (id == "B'"){
+            //The same but tack on a B as a binary flag for Hex's function
+            working = input.substr(2,input.length()-3);
+            working = "B"+working;
+            return Hex::toInt(working);
+        } else {
+            //Run as integer
+            int temp;
+            std::stringstream(input) >> temp;
+            return temp;
+        }
     }//end force-int
 }
 #endif
