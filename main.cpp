@@ -44,8 +44,13 @@ int main(int argCount, char** args){
             //Increment current location by instruction mode + e of the line
             blockList = divideString(line,' ');
             opor = blockList[label];
+            
+            //If a reservation, find out how many to res
+            int resCount = 1;
+            if (opor.substr(0,3) == "RES")
+                resCount = primary::forceInt(blockList[label+1]);
               
-            CurrentAddress += instructions::sizeOf(opor);//(instructions::get(opor).format + fb::e(line,false) );   
+            CurrentAddress += instructions::sizeOf(opor,resCount);
         }//end if-instruction
         else if (state == 3){
               //Directive.  Operator is first block, or second if label. Operands follow.  0 is always the label.
