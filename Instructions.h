@@ -140,14 +140,14 @@ namespace instructions {
 		return theInst;
 	}//end get
 	
-	int sizeOf(std::string opor, int resCount = 1){
-		//Return the number of bytes the instruction occupies
+	int sizeOf(std::string opor, int resCount, int e = 42){
+		//Return the number of bytes the instruction occupies.  Grab e if not given it.  E is binary, so a default nonbinary will suffice as a flag.
 		Instruction inst = get(opor);
-		int e = fb::e(opor,false);
 		if (!inst.format)
 			//Memory management.  If a resCount exists, step forward that*size.  Else, step forward size.  Default behavior of 1 means constant multiplication is okay.
 			return resCount * primary::forceInt(inst.opcode);
 		//Actual instruction.  Step forward its byte value.
+		if (e == 42) e = fb::e(opor,false);
 		return inst.format + e;
 }//end namespace
 
