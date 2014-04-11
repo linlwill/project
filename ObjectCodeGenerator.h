@@ -36,13 +36,14 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
     //Begin case branching.  Screw you switches.
     
     if (theInst.format == 0){
-        //Memory management
+        //Memory management.  Size is how many bytes it takes.
         int size = theInst.opcode.value;
         if (opor.substr(0,3) == "RES"){
-            //Reservation.  Step ahead opand*size bytes.
+            //Reservation.  Step ahead opand*size bytes, return a newline and begin a new text record.
             primary::CurrentAddress += primary::forceInt(opand)*size;
+            return "\nT";
         } else {
-            //Assignment.  Opand is what to initialize to.
+            //Assignment.  Opand is what to initialize to.  Return opand's value in hex, occupying however much space it should.
             int value = primary::forceInt(opand);
             return Hex(value).getHex(size);
         }//end else
@@ -97,6 +98,8 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
         objCode += (opcode.getHex(2)+xbpe.getHex()+finalAddr);
     }//end case 3
 
+    //Step ahead however many bytes we just took up.  Memory management will have returned far above, so format is how many bytes it's taking up.  e=1 would add another.
+    primary::CurrentAddres += e + theInst.format;
     return objCode;
 }
 #endif
