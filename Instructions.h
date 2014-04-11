@@ -139,6 +139,16 @@ namespace instructions {
 		Instruction theInst = DB[opor];
 		return theInst;
 	}//end get
+	
+	int sizeOf(std::string opor, int resCount = 1){
+		//Return the number of bytes the instruction occupies
+		Instruction inst = get(opor);
+		int e = fb::e(opor,false);
+		if (!inst.format)
+			//Memory management.  If a resCount exists, step forward that*size.  Else, step forward size.  Default behavior of 1 means constant multiplication is okay.
+			return resCount * primary::forceInt(inst.opcode);
+		//Actual instruction.  Step forward its byte value.
+		return inst.format + e;
 }//end namespace
 
 #endif
