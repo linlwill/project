@@ -34,13 +34,13 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
 
 
     //Begin case branching.  Screw you switches.
-    int resCount = 0;
+    int resCount = 1;
     if (theInst.format == 0){
         //Memory management.  Size is how many bytes it takes.
         int size = theInst.opcode.value;
         int value = primary::forceInt(opand);
         if (opor.substr(0,3) == "RES"){
-            //Reservation.  Step ahead opand*size bytes, return a newline and begin a new text record.
+            //Reservation.  Return a newline and begin a new text record.  Record the count.
             resCount = value;
             objectCode = "\nT";
         } else {
