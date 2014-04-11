@@ -100,7 +100,7 @@ std::string objectCode(std::string lineOfCode, int hasLabel){
 
     //Step ahead however many bytes we just took up.  
     //primary::CurrentAddres += e + theInst.format;
-    primary::CurrentAddres += instructions::sizeOf(opor,resCount);
+    primary::CurrentAddres += instructions::sizeOf(opor,resCount,e);
     return objCode;
 }
 #endif
