@@ -45,7 +45,7 @@ int main(int argCount, char** args){
             blockList = divideString(line,' ');
             opor = blockList[label];
               
-            CurrentAddress += (instructions::get(opor).format + fb::e(line,false) );   
+            CurrentAddress += instructions::sizeOf(opor);//(instructions::get(opor).format + fb::e(line,false) );   
         }//end if-instruction
         else if (state == 3){
               //Directive.  Operator is first block, or second if label. Operands follow.  0 is always the label.
