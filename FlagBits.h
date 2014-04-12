@@ -39,11 +39,11 @@ std::string nix(std::string& operand){
 }//end nix
 
 int e(std::string& opor, bool wipe = true){
-  if (opor[0] != '+') return 0;
-  else {
-    if (wipe) opor.erase(0,1);
-    return 1;
-  }//end else
+   if (opor[0] != '+') return 0;
+   else {
+      if (wipe) opor.erase(0,1);
+      return 1;
+   }//end else
 }//end e
 
 std::string bp(int& want, int current){
