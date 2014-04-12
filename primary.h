@@ -5,12 +5,14 @@
 #include "LinkedList.h"
 #include "Hex.h"
 #include <sstream>
+#include <fstream>
+#include "Modification.h"
 
 namespace primary{
     std::map<std::string,int> labelTable;
-    int CurrentAddress, startingAddress, label, state, workingBlock, argCount;
-    std::string startLabel;
-
+    int CurrentAddress, startingAddress, label, state, workingBlock, argCount, programLength;
+    std::string startLabel, programName;
+    std::ofstream outFile;
 
     int forceInt(std::string input){
         //Evaluate based on integer, hexidecimal, binary, {char, or arithmatic} input.
@@ -32,4 +34,5 @@ namespace primary{
         }
     }//end force-int
 }
+
 #endif
