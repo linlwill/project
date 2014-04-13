@@ -22,22 +22,16 @@ into this:
 
 And I'm getting close to making it.
 
-At the moment, I can identify the following unsolved problems:
 
-Program blocks - allow the programmer to write code in multiple files with directives given to publish/include material between said files.  During assembly, all the files are treated as the same.
+The Great Update
+================
+And how great it is.  The assembler is finished*.  That's a mighty big asterix on that word, but it's no less valid for the punctuation.  Debugging has been very light, and I mean VERY light (I ran a one-instruction program through it in both extended and non-extended formats), but from what I can see it works.  If all we did from this point was fix everything and clean up the mess, our project would pass.  
 
-Macros - by bookending a block of code with directives, the label of the first line can be used as an instruction to insert the bookended code.
-     Subtask: permit variables to be passed.
-     Subtask: branch outputed code based on state of variables (or other conditionals)
-     Subtask: implement dynamic renaming of instance-labels.  Invoking a macro that includes the label "Pie" will create the label "APie".  Another invocation will create the label "BPie".
+_Where To Go From Here_
+Fix what we've got.  At first glance it works, but I'm way too cynical to believe there aren't still bugs.
 
-Memory Management: this has been implemented.  Wasn't very hard.
+Implement Macros.  I call dibs on this.  I've got it in my head how I want to do it; I may start on it tonight, but it's not a short-term goal.
 
-Literals: Textbook makes these more complicated than they need to be.  If given an = as a leading flag in opand, run it literally.  No need for the textbook's temporary label nonsense.  This has been implemented (I think)
+Implement Control Sections/Program Blocks.  This will require some finagling with the directive behavior and possibly the flow logic behind the object code.  Don't know yet.
 
-Expressions: I'm not sure the cannonicality of this, but I want the programmer to be able to use simple math in operands.  /*+- are good.  When encountered, they form a quick parsing tree, grabbing the block to their immediate left and right.  Since * can mean "multiply" or "current location", do some context-sensative stuff.  If *'s children are math operators or nothing, handle as current location.  If it is bookended by labels or numbers, multiply.
-
-And, of course, the ultimate problem: object code.
-
-
-As for that ultimate problem, I've made a step forward as to it.  The program now throws object code into an out.o file as it generates it.  RES* instructions pass a newline and a T, indicating a break and a new text record.  Modification records, header records, Stone Temple Pilot records, etc are not yet implemented.
+Anything Else I've Forgot.  There may or may not be features I forgot about.
