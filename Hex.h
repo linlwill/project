@@ -105,19 +105,17 @@ int Hex::toInt(std::string input){
   int result = 0;
   int count = 0;
   int digit;
+  int B = 0;
   int power = 16;
-  
+
   if (input[0] == 'B'){
     input.erase(0,1);
     power = 2;
-  }//end if binary
-  else if (input[0] == 'I'){
-    input.erase(0,1);
-    power = 10;
-  }//end if integer
-  
+    B = 1;
+  }
+
     //Hexadecimal - ID if letter or number.  If number, handle just like bin.  If letter, same but do - 87 since a=97.  Allow [0].
-    for (int i = input.length()-1; i >= 0; i--){
+    for (int i = input.length()-1; i >= B; i--){
       digit = input[i];
       if (digit >= 'a') digit -= 87;
       else digit -= '0';
@@ -125,7 +123,6 @@ int Hex::toInt(std::string input){
       count++;
     }//end for
     return result;
-  }//end condition
 }//end toInt
 
 #endif

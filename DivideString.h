@@ -8,7 +8,8 @@ LinkedList<std::string> divideString(std::string input, char demark, bool contin
     LinkedList<std::string> list = LinkedList<std::string>();
     std::string buffer = "";
     for (int i = 0; i < input.length(); i++){
-        if (input[i] == demark){
+        //9 is the char value of a tab.  Tabs always demark.
+        if ((input[i] == demark) || (input[i] == 9)){
             //Doing continuous, strings of demarks count as one.  Turn cont off, and Hello!!World demarked with '!' will make a list {"Hello","","World"}
             if (buffer.length() || !continuous){
                 list.add(buffer);

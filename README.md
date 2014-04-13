@@ -1,43 +1,25 @@
-project
-=======
+The Great Update
+================
+And how great it is.  The assembler is finished*.  That's a mighty big asterix on that word, but it's no less valid for the punctuation.  Debugging has been very light, and I mean VERY light (I ran a one-instruction program through it in both extended and non-extended formats), but from what I can see it works.  If all we did from this point was fix everything and clean up the mess, our project would pass.  
 
-The assembler for CSCI30000
+What I Did
+----------
 
-The goal is to turn this:
+Besides fixing innumerable issues, main now passes object code to a text-record handler.  It adds it to a running buffer and waits for a signal to stop: "!END!".  When that happens, it constructs texts records according to the format in the textbook and loads them into a queue.
 
-     0         START     0
-     1         LDA       #10
-     2         LDX       #0
-     3    LOOP COMPR     A,X       .This program loops around ten times doing nothing else
-     4         JEQ       OUT
-     5         SUB       #1
-     6         J         LOOP
-     7    OUT  END
+Meanwhile in ~~the Hall of Justice~~ flag bits, the function that calculates e will now generate modification records when it's doing its final pass by passing info to a modification record handler, which loads them into another queue.  
 
-into this:
+Before Pass Two begins, the assembler generates the header record based on information gathered by START and END in Pass One.  Then it analyzes all the lines.  Then it passes one last end command to the text records and then pulls all of them off of their queue, writing them to the file.  Then it does the same thing for the modification records.  Then it generates and writes the end record.
 
-     HHello12345
-     Tdeadbeef
-     M41
+There's also been more small, bug-fixing changes than I can count, and definitely more than I remember.  Most notibly, a few things have been moved to primary that weren't there before, DivideString() has been changed to suport tabs, line length returns the correct values (it was returning bits, not bytes), LineCase works properly (I had my odds and evens reversed) and a lot of other stuff.  Anything edited with the remark "The Great Update" was modified.
 
-And I'm getting close to making it.
+Where To Go From Here
+---------------------
 
-At the moment, I can identify the following unsolved problems:
+Fix what we've got.  At first glance it works, but I'm way too cynical to believe there aren't still bugs.
 
-Program blocks - allow the programmer to write code in multiple files with directives given to publish/include material between said files.  During assembly, all the files are treated as the same.
+Implement Macros.  I call dibs on this.  I've got it in my head how I want to do it; I may start on it tonight, but it's not a short-term goal.
 
-Macros - by bookending a block of code with directives, the label of the first line can be used as an instruction to insert the bookended code.
-     Subtask: permit variables to be passed.
-     Subtask: branch outputed code based on state of variables (or other conditionals)
-     Subtask: implement dynamic renaming of instance-labels.  Invoking a macro that includes the label "Pie" will create the label "APie".  Another invocation will create the label "BPie".
+Implement Control Sections/Program Blocks.  This will require some finagling with the directive behavior and possibly the flow logic behind the object code.  Don't know yet.
 
-Literals: I don't understand these.  They allow the direct use of relative address instead of a label; that use is supported as-is because if the object code generator sees numbers it passes them as-is.  Research is needed.
-
-Memory management: The programmer can set aside blocks of memory, and optionally intialize them to some value.  This one will be easy; upon seeing it increment the current location by that many blocks, thus passing over those spaces.  For an intialized value, on pass two when code is being written, throw that value into the space.  This might prove hazardous; don't know yet.
-
-Expressions: I'm not sure the cannonicality of this, but I want the programmer to be able to use simple math in operands.  /*+- are good.  When encountered, they form a quick parsing tree, grabbing the block to their immediate left and right.  Since * can mean "multiply" or "current location", do some context-sensative stuff.  If *'s children are math operators or nothing, handle as current location.  If it is bookended by labels or numbers, multiply.
-
-And, of course, the ultimate problem: object code.
-
-
-Right now, I actually want to get object code working.  Right now, at this moment, I have made everything we need to make a low-functioning assembler.  No fancy macros, control sections, memory, etc, but it can translate basic code.  That's good enough for me.  Higher functions act on object code so we'd be starting from a lower point anyway.  So, right now, at this moment, I am going to solve the problem of object code.  Then other functions can emerge.
+Anything Else I've Forgot.  There may or may not be features I forgot about.
